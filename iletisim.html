@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>İletişim · Bilinçli Tüketici Platformu</title>
+  <meta name="description" content="Bilinçli Tüketici Platformu iletişim ve evrak adresi.">
+  <link rel="canonical" href="https://bilinclituketiciplatformu.com/iletisim.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Bilinçli Tüketici Platformu">
+        <img class="brand-logo" src="assets/logo.png" alt="Bilinçli Tüketici Platformu">
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Menüyü aç">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" data-nav-drawer aria-label="Ana menü">
+        <a href="index.html">Ana sayfa</a>
+        <a href="ucus-tazminati.html">Uçuş tazminatı</a>
+        <a href="blog.html">Makaleler</a>
+        <a href="deneyimler.html">Yorumlar</a>
+        <a href="hakkimizda.html">Hakkımızda</a>
+        <a href="iletisim.html" aria-current="page">İletişim</a>
+      </nav>
+      <div class="header-tools">
+        <a class="nav-cta" href="ucus-tazminati.html">Uçuşumu sorgula</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="page-hero">
+      <p class="eyebrow">İletişim</p>
+      <h1>Evrak ve sorularınız için</h1>
+      <p class="lead">Başvuru evraklarını e-posta ile gönderin. Kısa bir not bırakmak isterseniz formu kullanabilirsiniz.</p>
+    </section>
+
+    <div class="contact-grid">
+      <aside class="contact-card">
+        <p class="eyebrow">Evrak adresi</p>
+        <h2 class="headline" style="margin-top:0">E-posta</h2>
+        <p><a href="mailto:infobilinclituketiciplatformu@gmail.com">infobilinclituketiciplatformu@gmail.com</a></p>
+        <p class="source-note">Bilet, boarding pass, havayolu yazışması ve kimlik fotokopisini bu adrese iletin. Uçuş tazminatı başvurusu yaptıysanız konu satırına başvuru numaranızı yazın.</p>
+      </aside>
+      <section class="card" style="margin-top:0">
+        <form id="contactForm" action="https://formspree.io/f/xdardvrj" method="POST">
+          <input type="hidden" name="kaynak" value="bilinclituketiciplatformu-iletisim">
+          <input type="hidden" name="_subject" value="BTP iletişim formu">
+          <div class="form-group">
+            <label for="ad">Ad soyad</label>
+            <input id="ad" name="ad_soyad" type="text" required autocomplete="name">
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label for="eposta">E-posta</label>
+            <input id="eposta" name="email" type="email" required autocomplete="email">
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label for="mesaj">Mesaj</label>
+            <textarea id="mesaj" name="mesaj" required maxlength="2000"></textarea>
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" class="primary-btn">Gönder</button>
+          <p class="form-help">Form, inceleme için iletişim kaydı oluşturur. Evrak eklerini lütfen e-posta ile gönderin.</p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="copyright">© 2026 Bilinçli Tüketici Platformu · <a href="kvkk.html">KVKK</a></p>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

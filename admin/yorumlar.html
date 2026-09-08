@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Yorum onayı · Bilinçli Tüketici Platformu</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/site.css">
+</head>
+<body>
+  <main class="wrap admin-page">
+    <p class="eyebrow">Yönetim</p>
+    <h1>Yorum onayı</h1>
+    <p class="lead">Bekleyen yorumu onaylayınca sitede hemen görünür. E-posta adresi yayınlanmaz.</p>
+
+    <section class="card" id="adminLoginCard">
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label for="adminPassword">Onay şifresi</label>
+          <input id="adminPassword" name="password" type="password" required autocomplete="current-password">
+        </div>
+        <button class="primary-btn" type="submit">Giriş yap</button>
+        <p class="field-error" id="adminLoginError">Şifre yanlış.</p>
+      </form>
+    </section>
+
+    <div id="adminPanel" hidden>
+      <p><button class="ghost-btn" type="button" id="adminLogout">Çıkış</button></p>
+      <h2 class="stories-heading">Onay bekleyenler</h2>
+      <div id="pendingList" class="story-list"></div>
+      <p class="form-help" id="pendingEmpty" hidden>Bekleyen yorum yok.</p>
+      <h2 class="stories-heading" style="margin-top:32px">Yayında · yanıt yaz</h2>
+      <p class="form-help">Yayındaki her yorumun altından platform yanıtı ekleyebilir veya güncelleyebilirsiniz.</p>
+      <div id="publishedList" class="story-list"></div>
+      <p class="form-help" id="publishedEmpty" hidden>Yayında yorum yok.</p>
+    </div>
+  </main>
+  <script src="../js/admin-stories.js"></script>
+</body>
+</html>

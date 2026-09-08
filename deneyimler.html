@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tüketici deneyimleri · Bilinçli Tüketici Platformu</title>
+  <meta name="description" content="Yaşadığınız tüketici sorununu yazın. Paylaşımlar incelendikten sonra sitede yayınlanır.">
+  <link rel="canonical" href="https://bilinclituketiciplatformu.com/deneyimler.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <a class="skip" href="#icerik">İçeriğe geç</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Bilinçli Tüketici Platformu">
+        <img class="brand-logo" src="assets/logo.png" alt="Bilinçli Tüketici Platformu">
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Menüyü aç">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" data-nav-drawer aria-label="Ana menü">
+        <a href="index.html">Ana sayfa</a>
+        <a href="ucus-tazminati.html">Uçuş tazminatı</a>
+        <a href="blog.html">Makaleler</a>
+        <a href="deneyimler.html" aria-current="page">Yorumlar</a>
+        <a href="hakkimizda.html">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+      </nav>
+      <div class="header-tools">
+        <a class="nav-cta" href="ucus-tazminati.html">Uçuşumu sorgula</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="icerik" class="wrap">
+    <section class="page-hero">
+      <p class="eyebrow">Topluluk</p>
+      <h1>Yaşadığınız sorunu yazın</h1>
+      <p class="lead">Uçuş gecikmesi, iade, ayıplı ürün veya başka bir tüketici sorunu. Kısa tutun; firma veya kişi ismi yazmayın. Paylaşımlar incelendikten sonra burada yorum olarak görünür.</p>
+    </section>
+
+    <div class="stories-page">
+      <section aria-labelledby="stories-list-title">
+        <h2 id="stories-list-title" class="stories-heading">Yayınlanan yorumlar</h2>
+        <div class="story-list story-list-page" data-stories-list>
+          <p class="form-help" data-stories-empty>Onaylanan yorumlar burada görünür. İlk paylaşımı siz yazın.</p>
+        </div>
+      </section>
+
+      <section class="card story-form-card" aria-labelledby="story-form-title">
+        <h2 id="story-form-title">Yorum yazın</h2>
+        <p class="form-help" style="margin-top:0">E-postanız sitede görünmez. Yalnızca inceleme ve gerekirse dönüş için kullanılır.</p>
+        <form id="storyForm" action="api/story-submit.php" method="POST">
+          <input type="hidden" name="kaynak" value="bilinclituketiciplatformu-deneyim">
+          <input type="hidden" name="_subject" value="BTP tüketici deneyimi">
+          <div class="form-group" style="margin-top:16px">
+            <label for="storyName">Adınız <span class="optional-tag">isteğe bağlı</span></label>
+            <input id="storyName" name="ad" type="text" maxlength="80" placeholder="Ad veya baş harf, örn. A.K." autocomplete="nickname">
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label for="storyTopic">Konu</label>
+            <select id="storyTopic" name="konu" required>
+              <option value="" disabled selected>Seçin</option>
+              <option>Uçuş</option>
+              <option>Bagaj</option>
+              <option>Ayıplı ürün / hizmet</option>
+              <option>E-ticaret / iade</option>
+              <option>Kira / depozito</option>
+              <option>Diğer</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label for="storyCity">Şehir <span class="optional-tag">isteğe bağlı</span></label>
+            <input id="storyCity" name="sehir" type="text" maxlength="60" autocomplete="address-level2">
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label for="storyText">Yaşadığınız sorun</label>
+            <textarea id="storyText" name="deneyim" required maxlength="1200" placeholder="Ne oldu, ne yaptınız, sonuç ne oldu?"></textarea>
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label for="storyEmail">E-posta</label>
+            <input id="storyEmail" name="email" type="email" required autocomplete="email">
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <label for="storyWebsite">Website</label>
+            <input type="text" id="storyWebsite" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="kvkk-row">
+            <input id="storyKvkk" name="kvkk" type="checkbox" required>
+            <label for="storyKvkk"><a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>’ni okudum. Yorumumun incelendikten sonra sitede yayınlanmasını kabul ediyorum.</label>
+          </div>
+          <button type="submit" class="primary-btn">Yorumu gönder</button>
+          <p class="form-help">Gönderimler hemen yayınlanmaz. Hakaret, reklam ve firma/kişi ismi içeren metinler yayınlanmaz.</p>
+          <p class="field-error" id="storyError">Gönderilemedi. Lütfen tekrar deneyin veya e-posta ile yazın.</p>
+        </form>
+        <p class="form-success" id="storySuccess" hidden>Teşekkürler. Paylaşımınız alındı; uygunsa kısa süre içinde burada görünür.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="copyright">© 2026 Bilinçli Tüketici Platformu · <a href="kvkk.html">KVKK</a></p>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

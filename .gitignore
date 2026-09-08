@@ -1,0 +1,8 @@
+.env
+api/lib/local-config.php
+api/cache/*
+!api/cache/.gitkeep
+api/data/*.json
+!api/data/.gitkeep
+.DS_Store
+.github/FTP-Deploy-Action-Log*.txt
