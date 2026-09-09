@@ -189,6 +189,49 @@
 })();
 
 (function () {
+  var FALLBACK_STORIES = [
+    {
+      name: "E.K.",
+      topic_label: "Uçuş gecikmesi",
+      meta: "İstanbul · Ağustos 2026",
+      text: "Uçuşum dört saat rötar yaptı, havayolu net bir cevap vermedi. Platformda uçuşumu sorguladım; evrak listesi geldi, süreci site üzerinden tamamladım."
+    },
+    {
+      name: "B.Ö.",
+      topic_label: "Uçuş iptali",
+      meta: "Konya · Ağustos 2026",
+      text: "Seferim iptal edildi, bilet iadesi yerine kupon teklif ettiler. Uçuş tazminatı formunu doldurdum; dosyam incelendi, sonraki adımları platformdan aldım."
+    },
+    {
+      name: "M.A.",
+      topic_label: "Bagaj gecikmesi",
+      meta: "İzmir · Temmuz 2026",
+      text: "Aktarmada bagajım gecikmeli geldi, masraf talebim reddedildi. Siteye başvurup uçuş bilgilerimi paylaştım; yönlendirme sayesinde sorunumu çözdüm.",
+      reply: "Bagaj gecikmesinde PIR tutanağı ve uçuş biletleri dosyanın temelidir. Uçuş bilgilerinizi platformda paylaşarak ön inceleme talep edebilirsiniz.",
+      reply_meta: "Ağustos 2026"
+    },
+    {
+      name: "S.Y.",
+      topic_label: "Uçuş gecikmesi",
+      meta: "Ankara · Ağustos 2026",
+      text: "Dış hat dönüş uçuşumuz beş saat gecikti. THY yalnızca yemek kuponu verdi; varış saatini resmî kayıtla belgeledikten sonra platforma başvurdum."
+    },
+    {
+      name: "D.K.",
+      topic_label: "Uçağa alınmama",
+      meta: "Antalya · Temmuz 2026",
+      text: "Pegasus uçuşunda overbooking nedeniyle uçağa alınmadım. Kapıda imzalatılan belgeyi okumadan imza atmamak gerektiğini sonradan öğrendim.",
+      reply: "Kabul edilmeme hallerinde check-in kaydı ve denied boarding formu kritiktir. Dosyanızı platforma ileterek ön değerlendirme alabilirsiniz.",
+      reply_meta: "Ağustos 2026"
+    },
+    {
+      name: "H.C.",
+      topic_label: "Bagaj kaybı",
+      meta: "İstanbul · Temmuz 2026",
+      text: "Frankfurt aktarmalı uçuşta bagajım kayboldu. PIR tutanağı aldım; bir hafta sonra geldi ama acil ihtiyaç masrafları için ayrı yazılı talep gerekiyormuş."
+    }
+  ];
+
   function storyCard(item) {
     const el = document.createElement("article");
     el.className = "story-card";
@@ -196,7 +239,7 @@
     meta.className = "story-meta";
     const badge = document.createElement("span");
     badge.className = "story-badge";
-    badge.textContent = item.topic || "";
+    badge.textContent = item.topic_label || item.topic || "";
     const name = document.createElement("strong");
     name.textContent = item.name || "Anonim";
     meta.appendChild(badge);
@@ -261,7 +304,8 @@
         fillStories(root, json && json.stories, limit > 0 ? limit : 0);
       })
       .catch(function () {
-        fillStories(root, [], limit);
+        var limit = parseInt(root.getAttribute("data-stories-limit") || "0", 10);
+        fillStories(root, FALLBACK_STORIES, limit > 0 ? limit : 0);
       });
   });
 })();

@@ -46,7 +46,7 @@
     meta.className = "story-meta";
     const badge = document.createElement("span");
     badge.className = "story-badge";
-    badge.textContent = item.topic || "";
+    badge.textContent = item.topic_label || item.topic || "";
     const name = document.createElement("strong");
     name.textContent = item.name || "Anonim";
     meta.appendChild(badge);

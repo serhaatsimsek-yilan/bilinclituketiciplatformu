@@ -87,7 +87,7 @@ if (!stories_admin_authed()) {
 
 if ($action === "list") {
   $pending = stories_read_list(stories_pending_path());
-  $published = stories_read_list(stories_published_path());
+  $published = stories_sort_published(stories_read_list(stories_published_path()));
   $pendingOut = array();
   foreach ($pending as $row) {
     $pendingOut[] = array(
@@ -120,11 +120,12 @@ if ($action === "approve") {
   }
   $row = $pending[$idx];
   array_splice($pending, $idx, 1);
-  $published = stories_read_list(stories_published_path());
+  $published = stories_sort_published(stories_read_list(stories_published_path()));
   array_unshift($published, array(
     "id" => $row["id"],
     "name" => $row["name"],
     "topic" => $row["topic"],
+    "topic_label" => isset($row["topic_label"]) ? $row["topic_label"] : $row["topic"],
     "city" => isset($row["city"]) ? $row["city"] : "",
     "text" => $row["text"],
     "published_at" => time()
@@ -154,7 +155,7 @@ if ($action === "reject") {
 
 if ($action === "unpublish") {
   $id = isset($body["id"]) ? (string) $body["id"] : "";
-  $published = stories_read_list(stories_published_path());
+  $published = stories_sort_published(stories_read_list(stories_published_path()));
   $idx = stories_find_index($published, $id);
   if ($idx < 0) {
     stories_json(404, array("ok" => false, "message" => "Yayındaki yorum bulunamadı."));
@@ -169,7 +170,7 @@ if ($action === "unpublish") {
 if ($action === "reply") {
   $id = isset($body["id"]) ? (string) $body["id"] : "";
   $reply = stories_clean(isset($body["reply"]) ? $body["reply"] : "", 2000, true);
-  $published = stories_read_list(stories_published_path());
+  $published = stories_sort_published(stories_read_list(stories_published_path()));
   $idx = stories_find_index($published, $id);
   if ($idx < 0) {
     stories_json(404, array("ok" => false, "message" => "Yayındaki yorum bulunamadı."));

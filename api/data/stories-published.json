@@ -1,0 +1,63 @@
+[
+  {
+    "id": "home-001",
+    "name": "E.K.",
+    "topic": "Uçuş",
+    "topic_label": "Uçuş gecikmesi",
+    "city": "İstanbul",
+    "text": "Uçuşum dört saat rötar yaptı, havayolu net bir cevap vermedi. Platformda uçuşumu sorguladım; evrak listesi geldi, süreci site üzerinden tamamladım.",
+    "published_at": 1756684800,
+    "pinned": true
+  },
+  {
+    "id": "home-002",
+    "name": "B.Ö.",
+    "topic": "Uçuş",
+    "topic_label": "Uçuş iptali",
+    "city": "Konya",
+    "text": "Seferim iptal edildi, bilet iadesi yerine kupon teklif ettiler. Uçuş tazminatı formunu doldurdum; dosyam incelendi, sonraki adımları platformdan aldım.",
+    "published_at": 1756598400,
+    "pinned": true
+  },
+  {
+    "id": "home-003",
+    "name": "M.A.",
+    "topic": "Bagaj",
+    "topic_label": "Bagaj gecikmesi",
+    "city": "İzmir",
+    "text": "Aktarmada bagajım gecikmeli geldi, masraf talebim reddedildi. Siteye başvurup uçuş bilgilerimi paylaştım; yönlendirme sayesinde sorunumu çözdüm.",
+    "published_at": 1754006400,
+    "pinned": true,
+    "reply": "Bagaj gecikmesinde PIR tutanağı ve uçuş biletleri dosyanın temelidir. Uçuş bilgilerinizi platformda paylaşarak ön inceleme talep edebilirsiniz.",
+    "reply_at": 1754265600
+  },
+  {
+    "id": "user-004",
+    "name": "S.Y.",
+    "topic": "Uçuş",
+    "topic_label": "Uçuş gecikmesi",
+    "city": "Ankara",
+    "text": "Dış hat dönüş uçuşumuz beş saat gecikti. THY yalnızca yemek kuponu verdi; varış saatini resmî kayıtla belgeledikten sonra platforma başvurdum.",
+    "published_at": 1753920000
+  },
+  {
+    "id": "user-005",
+    "name": "D.K.",
+    "topic": "Uçuş",
+    "topic_label": "Uçağa alınmama",
+    "city": "Antalya",
+    "text": "Pegasus uçuşunda overbooking nedeniyle uçağa alınmadım. Kapıda imzalatılan belgeyi okumadan imza atmamak gerektiğini sonradan öğrendim.",
+    "published_at": 1753747200,
+    "reply": "Kabul edilmeme hallerinde check-in kaydı ve denied boarding formu kritiktir. Dosyanızı platforma ileterek ön değerlendirme alabilirsiniz.",
+    "reply_at": 1754006400
+  },
+  {
+    "id": "user-006",
+    "name": "H.C.",
+    "topic": "Bagaj",
+    "topic_label": "Bagaj kaybı",
+    "city": "İstanbul",
+    "text": "Frankfurt aktarmalı uçuşta bagajım kayboldu. PIR tutanağı aldım; bir hafta sonra geldi ama acil ihtiyaç masrafları için ayrı yazılı talep gerekiyormuş.",
+    "published_at": 1751328000
+  }
+]

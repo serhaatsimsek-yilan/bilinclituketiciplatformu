@@ -22,11 +22,11 @@ UCUS_FILES = {
 
 CTA_UCUS = """
       <h2>Platforma başvuru</h2>
-      <p>Yukarıdaki bilgiler genel çerçeveyi açıklar; tek başınıza havayoluna başvuru veya resmi süreç yürütmeniz için yol göstermez. Uçuş kaydınız incelenmeden kesin tazminat tutarı veya hak varlığı ifade edilemez. Bilinçli Tüketici Platformu'nda ücretsiz uçuş sorgulama yaparak dosyanızın ön incelemesini talep edin.</p>
+      <p>Yukarıdaki bilgiler genel çerçeveyi açıklar. Uçuş kaydınız incelenmeden kesin tazminat tutarı veya hak varlığı söylenemez. Bilinçli Tüketici Platformu'nda ücretsiz uçuş sorgulama yaparak dosyanızın ön incelemesini talep edebilirsiniz.</p>
       <p>Uçuş numarası, tarih ve kısa özet yeterlidir; uygun görülen kayıtlarda evrak listesi infobilinclituketiciplatformu@gmail.com üzerinden paylaşılır.</p>
       <div class="article-cta">
         <h2>Uçuş kaydınızı platformda sorgulayın</h2>
-        <p>Form birkaç dakika sürer. Havayoluna veya resmi kanallara tek başınıza gitmeden önce dosyanızın platformda incelenmesini talep edin.</p>
+        <p>Form birkaç dakika sürer. Dış hat veya iç hat uçuşunuz için dosyanızın platformda incelenmesini talep edin.</p>
         <a class="nav-cta" href="ucus-tazminati.html">Uçuşumu sorgula</a>
       </div>"""
 

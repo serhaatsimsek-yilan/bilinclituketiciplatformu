@@ -38,4 +38,6 @@ jobs:
             **/data/**
             api/lib/local-config.php
             api/cache/**
-            api/data/**
+            api/data/*
+            !api/data/stories-published.json
+            !api/data/.gitkeep

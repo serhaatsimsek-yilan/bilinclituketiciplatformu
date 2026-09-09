@@ -19,11 +19,10 @@ function stories_published_path() {
 
 function stories_topics() {
   return array(
-    "Uçuş",
+    "Uçuş gecikmesi",
+    "Uçuş iptali",
+    "Uçağa alınmama",
     "Bagaj",
-    "Ayıplı ürün / hizmet",
-    "E-ticaret / iade",
-    "Kira / depozito",
     "Diğer"
   );
 }
@@ -93,15 +92,36 @@ function stories_public_item($row) {
   $reply = isset($row["reply"]) ? trim((string) $row["reply"]) : "";
   $replyTs = isset($row["reply_at"]) ? (int) $row["reply_at"] : 0;
   $replyMeta = $reply !== "" && $replyTs > 0 ? stories_month_label($replyTs) : "";
+  $topic = isset($row["topic"]) ? (string) $row["topic"] : "Diğer";
+  $topicLabel = isset($row["topic_label"]) ? trim((string) $row["topic_label"]) : "";
+  if ($topicLabel === "") {
+    $topicLabel = $topic;
+  }
   return array(
     "id" => isset($row["id"]) ? (string) $row["id"] : "",
     "name" => isset($row["name"]) ? (string) $row["name"] : "Anonim",
-    "topic" => isset($row["topic"]) ? (string) $row["topic"] : "Diğer",
+    "topic" => $topic,
+    "topic_label" => $topicLabel,
     "text" => isset($row["text"]) ? (string) $row["text"] : "",
     "meta" => $meta,
     "reply" => $reply,
-    "reply_meta" => $replyMeta
+    "reply_meta" => $replyMeta,
+    "pinned" => !empty($row["pinned"])
   );
+}
+
+function stories_sort_published($list) {
+  usort($list, function ($a, $b) {
+    $pa = !empty($a["pinned"]) ? 1 : 0;
+    $pb = !empty($b["pinned"]) ? 1 : 0;
+    if ($pa !== $pb) {
+      return $pb - $pa;
+    }
+    $ta = isset($a["published_at"]) ? (int) $a["published_at"] : 0;
+    $tb = isset($b["published_at"]) ? (int) $b["published_at"] : 0;
+    return $tb - $ta;
+  });
+  return $list;
 }
 
 function stories_find_index($list, $id) {
