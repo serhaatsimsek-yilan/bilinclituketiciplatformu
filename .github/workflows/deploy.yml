@@ -22,17 +22,26 @@ jobs:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR || '/httpdocs/' }}
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y lftp
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" <<EOF
-          set ftp:ssl-allow no
-          cd $FTP_SERVER_DIR
-          mkdir -p api/data
-          mkdir -p api/cache
-          quit
-          EOF
+          python3 <<'PY'
+          import ftplib
+          import os
+          import time
+
+          ftp = ftplib.FTP()
+          ftp.connect(os.environ["FTP_SERVER"], 21, timeout=120)
+          ftp.login(os.environ["FTP_USERNAME"], os.environ["FTP_PASSWORD"])
+          ftp.set_pasv(True)
+
+          for folder in ("api", "api/data", "api/cache"):
+              try:
+                  ftp.mkd(folder)
+              except ftplib.error_perm:
+                  pass
+
+          ftp.quit()
+          time.sleep(2)
+          PY
 
       - name: FTP ile sunucuya yükle
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
@@ -58,4 +67,3 @@ jobs:
             api/cache/**
             api/data/**
             !api/data/stories-published.json
-            !api/data/.htaccess
