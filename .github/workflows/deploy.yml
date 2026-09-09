@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 concurrency:
   group: production-deploy
@@ -38,6 +39,6 @@ jobs:
             **/data/**
             api/lib/local-config.php
             api/cache/**
-            api/data/*
+            api/data/**
             !api/data/stories-published.json
-            !api/data/.gitkeep
+            !api/data/.htaccess
