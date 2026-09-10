@@ -1116,6 +1116,13 @@ textarea:focus {
   margin: 0;
   font-size: 36px;
   font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.02em;
+}
+
+.found-airline {
+  color: var(--blue-deep);
+  font-weight: 600;
 }
 
 .found-airline,
@@ -1129,6 +1136,47 @@ textarea:focus {
 .found-status.is-cancelled {
   color: var(--danger);
   font-weight: 700;
+}
+
+.flight-confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 28px;
+  align-items: stretch;
+}
+
+.flight-confirm-actions .gold-btn,
+.flight-confirm-actions .ghost-btn {
+  margin-top: 0;
+  width: 100%;
+  min-height: 58px;
+  padding: 14px 20px;
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 12px;
+  line-height: 1.25;
+}
+
+.flight-confirm-primary {
+  box-shadow: 0 14px 32px rgba(31, 86, 196, 0.3);
+}
+
+.flight-confirm-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(31, 86, 196, 0.34);
+}
+
+.flight-confirm-secondary {
+  border: 2px solid #d7dee8;
+  background: #f8fafc;
+  color: var(--ink-soft);
+}
+
+.flight-confirm-secondary:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-soft);
 }
 
 .found-times,
@@ -1181,38 +1229,174 @@ textarea:focus {
   font-size: 26px;
 }
 
+.result-flight-header {
+  text-align: center;
+  padding: 4px 0 18px;
+}
+
+.result-flight-code {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.02em;
+}
+
+.result-route {
+  margin: 6px 0 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.result-meta {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.result-headline {
+  margin: 18px 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.35;
+}
+
 .amount-highlight {
-  margin: 20px 0;
-  padding: 20px;
-  border-radius: 14px;
-  background: var(--blue-soft);
+  margin: 22px auto;
+  padding: 28px 24px 22px;
+  border-radius: 16px;
+  text-align: center;
+  background: linear-gradient(180deg, #faf5eb 0%, #f3ead8 100%);
+  border: 1px solid #e2d4b8;
+  box-shadow: 0 10px 28px rgba(180, 150, 90, 0.14);
+  max-width: 420px;
 }
 
 .amount-highlight-label {
   display: block;
-  color: var(--blue);
-  font-size: 13px;
+  color: #9a7b4f;
+  font-size: 11.5px;
   font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .amount-highlight-value {
   display: block;
-  font-size: 44px;
-  line-height: 1.1;
+  font-size: 58px;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--blue-deep);
+  letter-spacing: -0.03em;
+}
+
+.amount-highlight-note {
+  margin: 14px 0 0;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.disclaimer-box {
+  margin: 18px 0 22px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+}
+
+.disclaimer-box .disclaimer {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.result-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.result-actions .gold-btn,
+.result-actions .ghost-btn {
+  margin-top: 0;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+.result-action-primary {
+  box-shadow: 0 12px 28px rgba(31, 86, 196, 0.28);
+}
+
+.result-action-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(31, 86, 196, 0.32);
+}
+
+.result-action-secondary {
+  border: 2px solid #d7dee8;
+  background: #f8fafc;
+  color: var(--ink-soft);
+}
+
+.result-action-secondary:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.info-callout {
+  margin: 18px 0;
+  padding: 14px 16px 14px 18px;
+  border-radius: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-left: 4px solid #e6a623;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.info-callout p {
+  margin: 0;
+}
+
+.info-callout a {
+  color: var(--blue);
+  font-weight: 600;
 }
 
 .trust-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0 20px;
+}
+
+.trust-item {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin: 8px 0 18px;
-  color: var(--muted);
-  font-size: 13.5px;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.4;
 }
 
 .trust-mark {
   color: var(--ok);
-  margin-right: 6px;
+  flex-shrink: 0;
+  font-weight: 700;
 }
 
 .kvkk-row {
@@ -2094,7 +2278,7 @@ main.legal.article-page > .article-related {
     font-size: 15px;
   }
 
-  .btn-row {
+  .btn-row:not(.flight-confirm-actions) {
     flex-direction: column;
   }
 
@@ -2103,6 +2287,41 @@ main.legal.article-page > .article-related {
     width: 100%;
     justify-content: center;
     min-height: 48px;
+  }
+
+  .flight-confirm-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .flight-confirm-actions .gold-btn,
+  .flight-confirm-actions .ghost-btn {
+    min-height: 52px;
+    padding: 12px 10px;
+    font-size: 15px;
+  }
+
+  .result-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .result-actions .gold-btn,
+  .result-actions .ghost-btn {
+    min-height: 52px;
+    font-size: 15px;
+  }
+
+  .amount-highlight {
+    max-width: none;
+    padding: 24px 18px 20px;
+  }
+
+  .amount-highlight-value {
+    font-size: 48px;
+  }
+
+  .trust-row {
+    grid-template-columns: 1fr;
   }
 
   .card {

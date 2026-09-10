@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Uçuş Tazminatı Sorgula · Bilinçli Tüketici Platformu</title>
-  <meta name="description" content="Uçuş gecikmesi veya iptalinde SHY-YOLCU kapsamında tazminat hakkınızı ücretsiz sorgulayın. Evraklarınızı e-posta ile gönderin.">
+  <meta name="description" content="Uçuş gecikmesi veya iptalinde SHY-YOLCU kapsamında tazminat hakkınızı ücretsiz sorgulayın. Gerekirse belgeleriniz ayrıca talep edilir.">
   <link rel="canonical" href="https://bilinclituketiciplatformu.com/ucus-tazminati.html">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +40,7 @@
     <section class="page-hero">
       <p class="eyebrow">Uçuş tazminatı · SHY-YOLCU</p>
       <h1>Uçuşunuz gecikti veya iptal mi edildi?</h1>
-      <p class="lead">Uçuş bilgilerinizi girin. Kayıt kontrol edilir, tazminat hakkınız ön değerlendirme olarak gösterilir. Belgelerinizi e-posta ile göndermeniz yeterlidir.</p>
+      <p class="lead">Uçuş bilgilerinizi girin. Kayıt kontrol edilir, tazminat hakkınız ön değerlendirme olarak gösterilir. Gerekirse belgeleriniz ayrıca talep edilir.</p>
     </section>
 
     <section class="card" id="checkFormCard">
@@ -109,9 +109,9 @@
       </div>
       <div class="found-times" id="foundTimes"></div>
       <p class="source-note" id="foundSourceNote"></p>
-      <div class="btn-row">
-        <button type="button" class="gold-btn" id="confirmFlightBtn">Evet, bu benim uçuşum</button>
-        <button type="button" class="ghost-btn" id="searchAgainBtn" style="margin-top:0">Farklı uçuş ara</button>
+      <div class="btn-row flight-confirm-actions">
+        <button type="button" class="gold-btn flight-confirm-primary" id="confirmFlightBtn">Evet, bu benim uçuşum</button>
+        <button type="button" class="ghost-btn flight-confirm-secondary" id="searchAgainBtn">Farklı uçuş ara</button>
       </div>
     </section>
 
@@ -140,14 +140,15 @@
       </form>
     </section>
 
-    <section class="card" id="resultCard" hidden>
+    <section class="card result-card" id="resultCard" hidden>
       <p class="eyebrow">Ön değerlendirme</p>
-      <h2 id="resultFlightCode" class="headline" style="margin-top:0">—</h2>
-      <p id="resultRoute" style="font-size:17px;font-weight:600;margin-bottom:6px"></p>
-      <p id="resultSourceNote" class="source-note"></p>
-      <div class="stats">
-        <div class="stat"><span>Havayolu</span><strong id="resultAirline">—</strong></div>
-        <div class="stat"><span>Tarih</span><strong id="resultDate">—</strong></div>
+      <div class="result-flight-header">
+        <h2 id="resultFlightCode" class="result-flight-code">—</h2>
+        <p id="resultRoute" class="result-route"></p>
+        <p class="result-meta"><span id="resultAirline">—</span> · <span id="resultDate">—</span></p>
+        <p id="resultSourceNote" class="source-note"></p>
+      </div>
+      <div class="stats result-stats">
         <div class="stat"><span>Planlanan varış</span><strong id="resultSchedArr">—</strong></div>
         <div class="stat"><span>Gerçek varış</span><strong id="resultActualArr">—</strong></div>
         <div class="stat"><span>Gecikme</span><strong id="resultDelay">—</strong></div>
@@ -155,24 +156,28 @@
         <div class="stat" hidden><span>Hava koşulları</span><strong id="resultWeather">—</strong></div>
         <div class="stat"><span>Bildirilen gerekçe</span><strong id="resultReason">—</strong></div>
       </div>
-      <p id="resultHeadline" class="headline"></p>
+      <p id="resultHeadline" class="result-headline"></p>
       <div id="resultAmountBox" class="amount-highlight" hidden>
         <span class="amount-highlight-label">Tahmini tazminat</span>
         <strong id="resultAmountValue" class="amount-highlight-value">€—</strong>
         <p id="resultAmountNote" class="amount-highlight-note" hidden></p>
       </div>
-      <p id="resultDisclaimer" class="disclaimer"></p>
-      <button type="button" class="gold-btn" id="openClaimBtn">Başvuruyu ilet</button>
-      <button type="button" class="ghost-btn" id="resetCheckBtn">Yeni sorgulama</button>
+      <div class="disclaimer-box">
+        <p id="resultDisclaimer" class="disclaimer"></p>
+      </div>
+      <div class="btn-row result-actions">
+        <button type="button" class="gold-btn result-action-primary" id="openClaimBtn">Tazminat başvurusu yap</button>
+        <button type="button" class="ghost-btn result-action-secondary" id="resetCheckBtn">Yeni sorgulama</button>
+      </div>
     </section>
 
     <section class="card" id="claimSection" hidden>
       <h2 class="headline" style="margin-top:0">Başvurunuzu tamamlayın</h2>
-      <p class="source-note">Ön değerlendirme bitti. İnceleme için iletişim bilgilerinizi bırakın; evraklarınızı e-posta ile gönderin.</p>
+      <p class="source-note">Ön değerlendirme tamamlandı. İnceleme için iletişim bilgilerinizi bırakmanız yeterlidir.</p>
       <div class="trust-row">
         <div class="trust-item"><span class="trust-mark">✓</span><span>Ücretsiz ön inceleme</span></div>
-        <div class="trust-item"><span class="trust-mark">✓</span><span>Evrak e-posta ile</span></div>
-        <div class="trust-item"><span class="trust-mark">✓</span><span>Kişisel veriler gizli tutulur</span></div>
+        <div class="trust-item"><span class="trust-mark">✓</span><span>Belgeleriniz gizli tutulur</span></div>
+        <div class="trust-item"><span class="trust-mark">✓</span><span>Platform tarafından incelenir</span></div>
       </div>
       <form id="claimForm" novalidate>
         <div class="claim-grid">
@@ -207,9 +212,8 @@
           </div>
           <textarea id="claimNotes" name="notes" maxlength="2000" placeholder="Uçuşunuzda yaşananları kısaca yazabilirsiniz."></textarea>
         </div>
-        <div class="mail-box">
-          <p>Bilet, boarding pass ve havayolu yazışmalarınızı şu adrese gönderin:<br>
-            <a href="mailto:infobilinclituketiciplatformu@gmail.com">infobilinclituketiciplatformu@gmail.com</a></p>
+        <div class="info-callout">
+          <p>Uçuş belgeleri (bilet, boarding pass, havayolu bildirimi vb.) inceleme sırasında ihtiyaç duyulursa sizden ayrıca talep edilecektir. İsterseniz <a href="mailto:infobilinclituketiciplatformu@gmail.com">infobilinclituketiciplatformu@gmail.com</a> adresine e-posta ile iletebilirsiniz.</p>
         </div>
         <div class="kvkk-row" id="group-kvkk">
           <input type="checkbox" id="claimKvkk" name="kvkkConsent">
@@ -234,9 +238,8 @@
         <h2>Başvurunuz alındı</h2>
         <p id="applicationSuccessNote">Ön değerlendirmeniz kaydedildi.</p>
         <div class="app-no" id="applicationNumberLabel">Başvuru No: —</div>
-        <div class="mail-box">
-          <p>Şimdi evraklarınızı gönderin. Konu satırına başvuru numaranızı yazın.<br>
-            <a href="mailto:infobilinclituketiciplatformu@gmail.com">infobilinclituketiciplatformu@gmail.com</a></p>
+        <div class="info-callout">
+          <p>Başvurunuz kaydedildi. Uçuş belgeleri inceleme sırasında ihtiyaç duyulursa sizden ayrıca talep edilecektir. İsterseniz belgelerinizi konu satırına başvuru numaranızı yazarak <a href="mailto:infobilinclituketiciplatformu@gmail.com">infobilinclituketiciplatformu@gmail.com</a> adresine iletebilirsiniz.</p>
         </div>
         <button type="button" class="gold-btn" id="newFlightCheckBtn">Yeni uçuş kontrol et</button>
       </div>

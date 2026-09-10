@@ -691,7 +691,7 @@ function wireUi() {
       const successNote = $("applicationSuccessNote");
       if (successNote) {
         successNote.textContent =
-          "Ön değerlendirmeniz alındı. Bilet, boarding pass ve havayolu yazışmalarınızı infobilinclituketiciplatformu@gmail.com adresine e-posta ile gönderin. Başvuru numaranızı konu satırına yazmanız yeterlidir.";
+          "Ön değerlendirmeniz alındı. Uçuş belgeleri inceleme sırasında ihtiyaç duyulursa sizden ayrıca talep edilecektir.";
       }
       hideAllSteps();
       $("applicationSuccessCard").hidden = false;
