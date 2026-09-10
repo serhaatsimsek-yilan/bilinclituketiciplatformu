@@ -147,9 +147,10 @@
     reduceMotion = false;
   }
 
-  var routePath = "M 4 30 C 38 10, 72 34, 108 16 S 168 28, 196 22";
+  var mobileRoutePath = "M 4 30 C 38 10, 72 34, 108 16 S 168 28, 196 22";
+  var desktopRoutePath = "M 0 28 C 40 8, 82 32, 124 14 S 172 26, 200 20";
 
-  function buildHeaderPlane(className, imgWidth, imgHeight) {
+  function buildHeaderPlane(className, imgWidth, imgHeight, routePath, restX, restY) {
     var halfW = imgWidth / 2;
     var halfH = imgHeight / 2;
     var motionTag = reduceMotion
@@ -167,7 +168,7 @@
       routePath +
       '" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 4" stroke-linecap="round"/>' +
       '<g class="header-mobile-plane-ship"' +
-      (reduceMotion ? ' transform="translate(100 22)"' : "") +
+      (reduceMotion ? ' transform="translate(' + restX + " " + restY + ')"' : "") +
       ">" +
       '<image class="header-mobile-plane-img" href="assets/mobile-plane-cartoon.png" x="' +
       -halfW +
@@ -186,12 +187,19 @@
   }
 
   var brand = inner.querySelector(".brand");
-  var tools = inner.querySelector(".header-tools");
+  var nav = inner.querySelector(".site-nav");
+  var iletisim = nav && nav.querySelector('a[href="iletisim.html"]');
   if (brand && !inner.querySelector(".header-mobile-plane")) {
-    brand.insertAdjacentElement("afterend", buildHeaderPlane("header-mobile-plane", 52, 26));
+    brand.insertAdjacentElement(
+      "afterend",
+      buildHeaderPlane("header-mobile-plane", 52, 26, mobileRoutePath, 100, 22)
+    );
   }
-  if (tools && !inner.querySelector(".header-desktop-plane")) {
-    tools.insertAdjacentElement("beforebegin", buildHeaderPlane("header-desktop-plane", 46, 23));
+  if (iletisim && !inner.querySelector(".header-desktop-plane")) {
+    iletisim.insertAdjacentElement(
+      "afterend",
+      buildHeaderPlane("header-desktop-plane", 58, 29, desktopRoutePath, 0, 28)
+    );
   }
 })();
 
