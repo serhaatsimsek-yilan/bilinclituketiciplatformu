@@ -357,9 +357,11 @@
   banner.setAttribute("aria-describedby", "consent-text");
   banner.innerHTML =
     '<div class="consent-banner-card">' +
+    '<div class="consent-banner-main">' +
     '<p class="consent-banner-eyebrow">Çerezler ve KVKK</p>' +
     '<p id="consent-title" class="consent-banner-title">Kişisel verileriniz ve çerezler</p>' +
-    '<p id="consent-text" class="consent-banner-text">Zorunlu çerezler site işlevleri için kullanılır. Formlar aracılığıyla ilettiğiniz veriler KVKK kapsamında yalnızca başvuru ve iletişim amacıyla işlenir. <a href="kvkk.html">KVKK metni</a> · <a href="gizlilik.html">Gizlilik</a></p>' +
+    '<p id="consent-text" class="consent-banner-text">Zorunlu çerezler site işlevleri için kullanılır. Form verileriniz KVKK kapsamında yalnızca başvuru ve iletişim için işlenir. <a href="kvkk.html">KVKK</a> · <a href="gizlilik.html">Gizlilik</a></p>' +
+    "</div>" +
     '<button type="button" class="primary-btn consent-banner-accept" data-consent-accept>Kabul ediyorum</button>' +
     "</div>";
 
