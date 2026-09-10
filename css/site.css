@@ -79,6 +79,102 @@ h3 {
   top: 12px;
 }
 
+.consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 85;
+  padding: 16px 0 calc(16px + env(safe-area-inset-bottom, 0px));
+  background: rgba(255, 255, 255, 0.97);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -12px 40px rgba(31, 56, 100, 0.12);
+  backdrop-filter: blur(8px);
+  animation: consent-slide-up 0.35s ease;
+}
+
+.consent-banner.is-closing {
+  animation: consent-slide-down 0.22s ease forwards;
+}
+
+@keyframes consent-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes consent-slide-down {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+.consent-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.consent-banner-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.consent-banner-eyebrow {
+  margin: 0 0 4px;
+  color: var(--blue);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.consent-banner-title {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.consent-banner-text {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.consent-banner-text a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.consent-banner-actions {
+  flex-shrink: 0;
+}
+
+.consent-banner-accept {
+  margin-top: 0;
+  min-width: 148px;
+  white-space: nowrap;
+}
+
+body.has-consent-banner {
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -2461,5 +2557,16 @@ main.legal.article-page > .article-related {
   .see-all {
     width: 100%;
     min-height: 46px;
+  }
+
+  .consent-banner-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .consent-banner-accept {
+    width: 100%;
+    min-height: 48px;
   }
 }

@@ -338,3 +338,52 @@
       });
   });
 })();
+
+(function initConsentBanner() {
+  if (window.location.pathname.indexOf("/admin/") !== -1) return;
+
+  var STORAGE_KEY = "btp-consent-v1";
+  try {
+    if (localStorage.getItem(STORAGE_KEY) === "1") return;
+  } catch (err) {
+    return;
+  }
+
+  var banner = document.createElement("aside");
+  banner.className = "consent-banner";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-modal", "false");
+  banner.setAttribute("aria-labelledby", "consent-title");
+  banner.setAttribute("aria-describedby", "consent-text");
+  banner.innerHTML =
+    '<div class="wrap consent-banner-inner">' +
+    '<div class="consent-banner-copy">' +
+    '<p class="consent-banner-eyebrow">Çerezler ve KVKK</p>' +
+    '<p id="consent-title" class="consent-banner-title">Kişisel verileriniz ve çerez kullanımı</p>' +
+    '<p id="consent-text" class="consent-banner-text">Bu site; oturum, form ve tercihleriniz için zorunlu çerezler kullanır. Uçuş tazminatı başvurusu ve iletişim formları aracılığıyla paylaştığınız kişisel veriler, 6698 sayılı KVKK kapsamında yalnızca başvurunuzun alınması, ön değerlendirme ve sizinle iletişim kurulması amacıyla işlenir. Ayrıntılar için <a href="kvkk.html">KVKK Aydınlatma Metni</a> ve <a href="gizlilik.html">Gizlilik Politikası</a> sayfalarını inceleyebilirsiniz.</p>' +
+    "</div>" +
+    '<div class="consent-banner-actions">' +
+    '<button type="button" class="primary-btn consent-banner-accept" data-consent-accept>Kabul ediyorum</button>' +
+    "</div>" +
+    "</div>";
+
+  function closeBanner() {
+    banner.classList.add("is-closing");
+    window.setTimeout(function () {
+      if (banner.parentNode) banner.parentNode.removeChild(banner);
+      document.body.classList.remove("has-consent-banner");
+    }, 220);
+  }
+
+  document.body.appendChild(banner);
+  document.body.classList.add("has-consent-banner");
+
+  banner.querySelector("[data-consent-accept]").addEventListener("click", function () {
+    try {
+      localStorage.setItem(STORAGE_KEY, "1");
+    } catch (err) {
+      /* ignore */
+    }
+    closeBanner();
+  });
+})();
