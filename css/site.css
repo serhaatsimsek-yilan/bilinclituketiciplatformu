@@ -754,6 +754,11 @@ h3 {
   scroll-margin-top: calc(var(--header) + 16px);
 }
 
+.blog-section .section-title {
+  margin: 0 0 10px;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+
 .blog-section > p {
   margin: 0 0 18px;
   max-width: 46em;
