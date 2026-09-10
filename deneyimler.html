@@ -43,15 +43,8 @@
       <p class="lead">Anasayfada gördüğünüz yorumlar ve kullanıcıların yazdığı paylaşımlar burada listelenir. Uçuş gecikmesi, iptal, bagaj ve benzeri konularda kısa yazabilirsiniz; uygun olanlar yayınlanır, platform yanıtı eklenebilir.</p>
     </section>
 
-    <div class="stories-page">
-      <section aria-labelledby="stories-list-title">
-        <h2 id="stories-list-title" class="stories-heading">Yayınlanan yorumlar</h2>
-        <div class="story-list story-list-page" data-stories-list>
-          <p class="form-help" data-stories-empty>Yorumlar yükleniyor…</p>
-        </div>
-      </section>
-
-      <section class="card story-form-card" aria-labelledby="story-form-title">
+    <div class="stories-layout">
+      <section class="card story-form-card" id="yorum-yaz" aria-labelledby="story-form-title">
         <h2 id="story-form-title">Yorum yazın</h2>
         <p class="form-help" style="margin-top:0">E-postanız sitede görünmez. Yalnızca inceleme ve gerekirse dönüş için kullanılır.</p>
         <form id="storyForm" action="api/story-submit.php" method="POST">
@@ -97,6 +90,13 @@
           <p class="field-error" id="storyError">Gönderilemedi. Lütfen tekrar deneyin veya e-posta ile yazın.</p>
         </form>
         <p class="form-success" id="storySuccess" hidden>Teşekkürler. Paylaşımınız alındı; uygunsa kısa süre içinde burada görünür.</p>
+      </section>
+
+      <section aria-labelledby="stories-list-title">
+        <h2 id="stories-list-title" class="stories-heading">Yayınlanan yorumlar</h2>
+        <div class="story-list story-list-page" data-stories-list>
+          <p class="form-help" data-stories-empty>Yorumlar yükleniyor…</p>
+        </div>
       </section>
     </div>
   </main>

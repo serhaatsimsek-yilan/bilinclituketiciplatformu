@@ -5,9 +5,11 @@
     "topic": "Uçuş",
     "topic_label": "Uçuş gecikmesi",
     "city": "İstanbul",
-    "text": "Uçuşum dört saat rötar yaptı, havayolu net bir cevap vermedi. Platformda uçuşumu sorguladım; evrak listesi geldi, süreci site üzerinden tamamladım.",
+    "text": "Uçuşum dört saat rötar yaptı, ne yapacağımı bilemedim. Platformda uçuşumu sorguladım; evrak listesi geldi, başvurumu buradan tamamladım ve tazminat sürecim sorunsuz ilerledi.",
     "published_at": 1756684800,
-    "pinned": true
+    "pinned": true,
+    "reply": "Güzel geri bildiriminiz için teşekkür ederiz. Uçuş bilgilerinizi platform üzerinden paylaşmanız süreci hızlandırmış; iyi günler dileriz.",
+    "reply_at": 1756771200
   },
   {
     "id": "home-002",
@@ -15,9 +17,11 @@
     "topic": "Uçuş",
     "topic_label": "Uçuş iptali",
     "city": "Konya",
-    "text": "Seferim iptal edildi, bilet iadesi yerine kupon teklif ettiler. Uçuş tazminatı formunu doldurdum; dosyam incelendi, sonraki adımları platformdan aldım.",
+    "text": "Seferim iptal edildi, bilet iadesi yerine kupon teklif edildi. Uçuş tazminatı formunu doldurdum; platform dosyamı inceledi, yönlendirdi ve hak ettiğimiz ödemeye ulaştık.",
     "published_at": 1756598400,
-    "pinned": true
+    "pinned": true,
+    "reply": "Deneyiminizi paylaştığınız için teşekkür ederiz. Kupon yerine tazminat hakkınızı değerlendirmeniz doğru bir adımdı; rica ederiz, ihtiyaç duyanlara da yol gösterin.",
+    "reply_at": 1756684800
   },
   {
     "id": "home-003",
@@ -25,10 +29,10 @@
     "topic": "Bagaj",
     "topic_label": "Bagaj gecikmesi",
     "city": "İzmir",
-    "text": "Aktarmada bagajım gecikmeli geldi, masraf talebim reddedildi. Siteye başvurup uçuş bilgilerimi paylaştım; yönlendirme sayesinde sorunumu çözdüm.",
+    "text": "Aktarmada bagajım gecikmeli geldi, masraf talebim süreci karışıktı. Siteye başvurup uçuş bilgilerimi paylaştım; platform yönlendirdi, evraklarım tamamlandı ve masrafım karşılandı.",
     "published_at": 1754006400,
     "pinned": true,
-    "reply": "Bagaj gecikmesinde PIR tutanağı ve uçuş biletleri dosyanın temelidir. Uçuş bilgilerinizi platformda paylaşarak ön inceleme talep edebilirsiniz.",
+    "reply": "Bizimle paylaştığınız için teşekkür ederiz. Bagaj gecikmesinde doğru evraklarla platforma başvurmak işleri kolaylaştırır; rica ederiz, güzel günler dileriz.",
     "reply_at": 1754265600
   },
   {
@@ -37,8 +41,10 @@
     "topic": "Uçuş",
     "topic_label": "Uçuş gecikmesi",
     "city": "Ankara",
-    "text": "Dış hat dönüş uçuşumuz beş saat gecikti. THY yalnızca yemek kuponu verdi; varış saatini resmî kayıtla belgeledikten sonra platforma başvurdum.",
-    "published_at": 1753920000
+    "text": "Dış hat dönüş uçuşumuz beş saat gecikti. Uçuş bilgilerimle platforma başvurdum; evrak listesi ve sonraki adımlar net geldi, süreci buradan tamamlayınca tazminatımız onaylandı.",
+    "published_at": 1753920000,
+    "reply": "Güveniniz için teşekkür ederiz. Dış hat uçuşlarında evrakları platform üzerinden iletmek süreci sadeleştirir; iyi ki bize ulaştınız.",
+    "reply_at": 1754006400
   },
   {
     "id": "user-005",
@@ -46,9 +52,9 @@
     "topic": "Uçuş",
     "topic_label": "Uçağa alınmama",
     "city": "Antalya",
-    "text": "Pegasus uçuşunda overbooking nedeniyle uçağa alınmadım. Kapıda imzalatılan belgeyi okumadan imza atmamak gerektiğini sonradan öğrendim.",
+    "text": "Overbooking nedeniyle uçağa alınamadım, ne yapacağımı bilmiyordum. Platforma başvurdum, dosyam incelendi; tüm süreci buradan yönettim ve hakkım ödendi.",
     "published_at": 1753747200,
-    "reply": "Kabul edilmeme hallerinde check-in kaydı ve denied boarding formu kritiktir. Dosyanızı platforma ileterek ön değerlendirme alabilirsiniz.",
+    "reply": "Yaşadığınız sıkıntıyı buradan anlattığınız için teşekkür ederiz. Uçağa alınmama hallerinde platform üzerinden başvuru süreci netleşir; rica ederiz, iyi günler.",
     "reply_at": 1754006400
   },
   {
@@ -57,7 +63,53 @@
     "topic": "Bagaj",
     "topic_label": "Bagaj kaybı",
     "city": "İstanbul",
-    "text": "Frankfurt aktarmalı uçuşta bagajım kayboldu. PIR tutanağı aldım; bir hafta sonra geldi ama acil ihtiyaç masrafları için ayrı yazılı talep gerekiyormuş.",
-    "published_at": 1751328000
+    "text": "Aktarmalı uçuşta bagajım kaybolmuştu. Platforma uçuş ve tutanak bilgilerimi ilettim; yönlendirme sayesinde acil ihtiyaç masraflarım da talep edildi, sorun çözüldü.",
+    "published_at": 1751328000,
+    "reply": "Paylaşımınız için teşekkür ederiz. Bagaj kaybında bilgileri platforma iletmek sonraki adımları netleştirir; rica ederiz, yorumunuz başkalarına da yol gösterecektir.",
+    "reply_at": 1751587200
+  },
+  {
+    "id": "user-007",
+    "name": "A.T.",
+    "topic": "Uçuş",
+    "topic_label": "Uçuş iptali",
+    "city": "Bursa",
+    "text": "Tatil dönüşü uçuşum iptal edildi, alternatif uçuş gece yarısı verildi. Platforma başvurdum; evrakları buradan tamamladım, süreç takip edildi ve tazminatım yatırıldı.",
+    "published_at": 1751155200,
+    "reply": "Güzel sözleriniz için teşekkür ederiz. İptal sonrası platform üzerinden başvuru yapmak süreci toparlar; iyi günler dileriz.",
+    "reply_at": 1751328000
+  },
+  {
+    "id": "user-008",
+    "name": "F.N.",
+    "topic": "Uçuş",
+    "topic_label": "Uçuş gecikmesi",
+    "city": "Adana",
+    "text": "Üç saati aşan gecikme yaşadık, çocuklarla havalimanında beklemek zordu. Uçuş sorgulama sayfasından bilgilerimi girdim, başvurumu platforma ilettim; sonunda tazminat aldık.",
+    "published_at": 1750896000,
+    "reply": "Deneyiminizi yazdığınız için teşekkür ederiz. Aileyle seyahatte gecikmeler yorucu olabiliyor; platform üzerinden başvuru süreci sizi yalnız bırakmaz, rica ederiz.",
+    "reply_at": 1751155200
+  },
+  {
+    "id": "user-009",
+    "name": "G.P.",
+    "topic": "Bagaj",
+    "topic_label": "Bagaj hasarı",
+    "city": "Trabzon",
+    "text": "Valiz hasarlı geldi, fotoğraf ve biletlerle platforma başvurdum. Dosyam incelendi, ne eksik ne fazla evrak istendi; hasar tazminatı sürecim buradan yürüdü.",
+    "published_at": 1750636800,
+    "reply": "Bizimle paylaştığınız için teşekkür ederiz. Hasarlı bagajda fotoğraf ve uçuş bilgisiyle platforma başvurmak yeterli olur; iyi ki yazdınız.",
+    "reply_at": 1750896000
+  },
+  {
+    "id": "user-010",
+    "name": "R.D.",
+    "topic": "Uçuş",
+    "topic_label": "Aktarma gecikmesi",
+    "city": "Gaziantep",
+    "text": "Aktarmada kaçırma riski yaşadık, son uçuş da gecikince tazminat hakkım olduğunu platformda öğrendim. Başvurumu buradan yaptım, süreç tamamlandı, memnun kaldık.",
+    "published_at": 1750464000,
+    "reply": "Güveniniz için teşekkür ederiz. Aktarmalı uçuşlarda haklarınızı platformda sorgulamak iyi bir başlangıçtır; rica ederiz, güzel yolculuklar dileriz.",
+    "reply_at": 1750636800
   }
 ]

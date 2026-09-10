@@ -248,41 +248,49 @@
       name: "E.K.",
       topic_label: "Uçuş gecikmesi",
       meta: "İstanbul · Ağustos 2026",
-      text: "Uçuşum dört saat rötar yaptı, havayolu net bir cevap vermedi. Platformda uçuşumu sorguladım; evrak listesi geldi, süreci site üzerinden tamamladım."
+      text: "Uçuşum dört saat rötar yaptı, ne yapacağımı bilemedim. Platformda uçuşumu sorguladım; evrak listesi geldi, başvurumu buradan tamamladım ve tazminat sürecim sorunsuz ilerledi.",
+      reply: "Güzel geri bildiriminiz için teşekkür ederiz. Uçuş bilgilerinizi platform üzerinden paylaşmanız süreci hızlandırmış; iyi günler dileriz.",
+      reply_meta: "Ağustos 2026"
     },
     {
       name: "B.Ö.",
       topic_label: "Uçuş iptali",
       meta: "Konya · Ağustos 2026",
-      text: "Seferim iptal edildi, bilet iadesi yerine kupon teklif ettiler. Uçuş tazminatı formunu doldurdum; dosyam incelendi, sonraki adımları platformdan aldım."
+      text: "Seferim iptal edildi, bilet iadesi yerine kupon teklif edildi. Uçuş tazminatı formunu doldurdum; platform dosyamı inceledi, yönlendirdi ve hak ettiğimiz ödemeye ulaştık.",
+      reply: "Deneyiminizi paylaştığınız için teşekkür ederiz. Kupon yerine tazminat hakkınızı değerlendirmeniz doğru bir adımdı; rica ederiz, ihtiyaç duyanlara da yol gösterin.",
+      reply_meta: "Ağustos 2026"
     },
     {
       name: "M.A.",
       topic_label: "Bagaj gecikmesi",
       meta: "İzmir · Temmuz 2026",
-      text: "Aktarmada bagajım gecikmeli geldi, masraf talebim reddedildi. Siteye başvurup uçuş bilgilerimi paylaştım; yönlendirme sayesinde sorunumu çözdüm.",
-      reply: "Bagaj gecikmesinde PIR tutanağı ve uçuş biletleri dosyanın temelidir. Uçuş bilgilerinizi platformda paylaşarak ön inceleme talep edebilirsiniz.",
+      text: "Aktarmada bagajım gecikmeli geldi, masraf talebim süreci karışıktı. Siteye başvurup uçuş bilgilerimi paylaştım; platform yönlendirdi, evraklarım tamamlandı ve masrafım karşılandı.",
+      reply: "Bizimle paylaştığınız için teşekkür ederiz. Bagaj gecikmesinde doğru evraklarla platforma başvurmak işleri kolaylaştırır; rica ederiz, güzel günler dileriz.",
       reply_meta: "Ağustos 2026"
     },
     {
       name: "S.Y.",
       topic_label: "Uçuş gecikmesi",
       meta: "Ankara · Ağustos 2026",
-      text: "Dış hat dönüş uçuşumuz beş saat gecikti. THY yalnızca yemek kuponu verdi; varış saatini resmî kayıtla belgeledikten sonra platforma başvurdum."
+      text: "Dış hat dönüş uçuşumuz beş saat gecikti. Uçuş bilgilerimle platforma başvurdum; evrak listesi ve sonraki adımlar net geldi, süreci buradan tamamlayınca tazminatımız onaylandı.",
+      reply: "Güveniniz için teşekkür ederiz. Dış hat uçuşlarında evrakları platform üzerinden iletmek süreci sadeleştirir; iyi ki bize ulaştınız.",
+      reply_meta: "Ağustos 2026"
     },
     {
       name: "D.K.",
       topic_label: "Uçağa alınmama",
       meta: "Antalya · Temmuz 2026",
-      text: "Pegasus uçuşunda overbooking nedeniyle uçağa alınmadım. Kapıda imzalatılan belgeyi okumadan imza atmamak gerektiğini sonradan öğrendim.",
-      reply: "Kabul edilmeme hallerinde check-in kaydı ve denied boarding formu kritiktir. Dosyanızı platforma ileterek ön değerlendirme alabilirsiniz.",
+      text: "Overbooking nedeniyle uçağa alınamadım, ne yapacağımı bilmiyordum. Platforma başvurdum, dosyam incelendi; tüm süreci buradan yönettim ve hakkım ödendi.",
+      reply: "Yaşadığınız sıkıntıyı buradan anlattığınız için teşekkür ederiz. Uçağa alınmama hallerinde platform üzerinden başvuru süreci netleşir; rica ederiz, iyi günler.",
       reply_meta: "Ağustos 2026"
     },
     {
       name: "H.C.",
       topic_label: "Bagaj kaybı",
       meta: "İstanbul · Temmuz 2026",
-      text: "Frankfurt aktarmalı uçuşta bagajım kayboldu. PIR tutanağı aldım; bir hafta sonra geldi ama acil ihtiyaç masrafları için ayrı yazılı talep gerekiyormuş."
+      text: "Aktarmalı uçuşta bagajım kaybolmuştu. Platforma uçuş ve tutanak bilgilerimi ilettim; yönlendirme sayesinde acil ihtiyaç masraflarım da talep edildi, sorun çözüldü.",
+      reply: "Paylaşımınız için teşekkür ederiz. Bagaj kaybında bilgileri platforma iletmek sonraki adımları netleştirir; rica ederiz, yorumunuz başkalarına da yol gösterecektir.",
+      reply_meta: "Temmuz 2026"
     }
   ];
 
