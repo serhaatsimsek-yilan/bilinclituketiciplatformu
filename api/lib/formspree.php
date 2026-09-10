@@ -1,15 +1,17 @@
 <?php
 /**
  * Shared Formspree client used by server-side forms.
- * Same inbox as "Bize Yazın" (form id xdardvrj) unless FORMSPREE_ENDPOINT is set.
+ * Set FORMSPREE_ENDPOINT in local-config.php or .env (form verified for infobilinclituketiciplatformu@gmail.com).
  */
 
+require_once __DIR__ . "/flight-config.php";
+
 function formspree_endpoint() {
-  $fromEnv = getenv("FORMSPREE_ENDPOINT");
-  if (is_string($fromEnv) && trim($fromEnv) !== "") {
-    return trim($fromEnv);
+  $configured = flight_config_string("FORMSPREE_ENDPOINT", "");
+  if ($configured !== "") {
+    return $configured;
   }
-  return "https://formspree.io/f/xdardvrj";
+  return "https://formspree.io/f/xppzknyn";
 }
 
 /**
@@ -28,12 +30,15 @@ function formspree_send(array $fields, array $files = array()) {
     $post[$name] = new CURLFile($file["tmp_name"], $file["type"], $file["name"]);
   }
 
+  $siteOrigin = flight_config_string("SITE_ORIGIN", "https://bilinclituketiciplatformu.com");
+  $referer = rtrim($siteOrigin, "/") . "/ucus-tazminati.html";
+
   $ch = curl_init($endpoint);
   curl_setopt_array($ch, array(
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => $post,
     CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_HTTPHEADER => array("Accept: application/json"),
+    CURLOPT_HTTPHEADER => array("Accept: application/json", "Referer: " . $referer),
     CURLOPT_TIMEOUT => 45,
     CURLOPT_CONNECTTIMEOUT => 15
   ));

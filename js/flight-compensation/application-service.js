@@ -1,8 +1,8 @@
 /**
- * Application submit — same path as Bize Yazın: browser → Formspree (xdardvrj).
+ * Application submit — server proxy → Formspree (xppzknyn), direct fallback.
  */
 
-import { FORMSPREE_ENDPOINT, CONTACT_EMAIL, SITE_ORIGIN } from "./config.js";
+import { CLAIM_SUBMIT_ENDPOINT, FORMSPREE_ENDPOINT, CONTACT_EMAIL, SITE_ORIGIN } from "./config.js";
 
 const INCIDENT_LABELS = {
   delayed: "Uçuş gecikti",
@@ -111,20 +111,48 @@ function buildClaimBody(payload, appNo, submittedAt) {
         : "Bu aşamada otomatik tutar üretilemedi"),
     "Başvuru tarihi: " + submittedAt,
     "",
-    "Belgeler: Tüketici evraklarını " + CONTACT_EMAIL + " adresine e-posta ile gönderecek.",
+    "Belgeler: İnceleme sırasında ihtiyaç duyulursa ayrıca talep edilir (" + CONTACT_EMAIL + ").",
     "KVKK onayı: Evet",
     "Kaynak: bilinclituketiciplatformu.com / ucus-tazminati"
   ].join("\n");
 }
 
-export async function submitApplication(payload) {
-  if (payload.website) {
-    return { ok: true, applicationNumber: generateApplicationNumber() };
+async function postClaimJson(url, payload) {
+  let res;
+  try {
+    res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    const error = new Error("Bağlantı hatası. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.");
+    error.code = "network_error";
+    throw error;
   }
 
+  let json = null;
+  try {
+    json = await res.json();
+  } catch (err) {
+    json = null;
+  }
+
+  if (!res.ok) {
+    const message =
+      json && typeof json.message === "string" && json.message.trim()
+        ? json.message.trim()
+        : formspreeErrorMessage(json);
+    const error = new Error(message);
+    error.code = "submit_failed";
+    throw error;
+  }
+
+  return json || {};
+}
+
+async function submitViaFormspreeDirect(payload, appNo, submittedAt) {
   const flight = payload.flight || {};
-  const appNo = generateApplicationNumber();
-  const submittedAt = formatSubmittedAt();
   const flightNumber = dash(flight.flightNumber);
   const subject =
     "BTP Uçuş Tazminatı – " +
@@ -141,6 +169,8 @@ export async function submitApplication(payload) {
   data.set("sayfa_url", SITE_ORIGIN + "/ucus-tazminati.html");
   data.set("ad_soyad", dash(payload.fullName));
   data.set("telefon", dash(payload.phone));
+  data.set("pnr", payload.pnr ? payload.pnr : "—");
+  data.set("basvuru_no", appNo);
   data.set("mesaj", body);
   data.set("kvkk_onay", "Evet");
 
@@ -171,4 +201,39 @@ export async function submitApplication(payload) {
   }
 
   return { ok: true, applicationNumber: appNo };
+}
+
+export async function submitApplication(payload) {
+  if (payload.website) {
+    return { ok: true, applicationNumber: generateApplicationNumber() };
+  }
+
+  const requestBody = {
+    fullName: payload.fullName,
+    phone: payload.phone,
+    email: payload.email,
+    pnr: payload.pnr,
+    notes: payload.notes,
+    website: payload.website || "",
+    kvkkConsent: payload.kvkkConsent === true,
+    flight: payload.flight || {},
+    assessment: payload.assessment || {},
+    delayMinutes: payload.delayMinutes,
+    distanceKm: payload.distanceKm
+  };
+
+  try {
+    const json = await postClaimJson(CLAIM_SUBMIT_ENDPOINT, requestBody);
+    if (json.applicationNumber) {
+      return { ok: true, applicationNumber: json.applicationNumber };
+    }
+    return { ok: true, applicationNumber: generateApplicationNumber() };
+  } catch (apiErr) {
+    if (!apiErr || apiErr.code !== "network_error") {
+      throw apiErr;
+    }
+    const appNo = generateApplicationNumber();
+    const submittedAt = formatSubmittedAt();
+    return submitViaFormspreeDirect(payload, appNo, submittedAt);
+  }
 }

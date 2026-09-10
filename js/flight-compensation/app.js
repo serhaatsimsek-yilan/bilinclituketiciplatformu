@@ -681,7 +681,7 @@ function wireUi() {
       notes: applicationState.notes,
       website: $("claimWebsite").value,
       kvkkConsent: applicationState.kvkkConsent,
-      flight: lastState.input,
+      flight: Object.assign({}, lastState.input, lastState.flight),
       assessment: lastState.assessment,
       delayMinutes: lastState.flight ? lastState.flight.delayMinutes : null,
       distanceKm: lastState.flight ? lastState.flight.distanceKm : null
