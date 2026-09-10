@@ -284,32 +284,158 @@ function wireUi() {
     groupId: "group-destination"
   });
 
-  function applyQueryParams() {
-    const params = new URLSearchParams(window.location.search);
-    const number = params.get("flightNumber");
-    const date = params.get("flightDate");
-    const originIata = params.get("originIata") || params.get("origin");
-    const destIata = params.get("destinationIata") || params.get("destination");
-    if (number && $("flightNumber")) {
-      $("flightNumber").value = normalizeFlightNumber(number);
-    }
-    if (date && $("flightDate")) {
-      $("flightDate").value = date;
-    }
-    if (originIata || destIata) {
-      loadAirportCatalog().then(function () {
-        if (originIata) originSelector.setByIata(originIata);
-        if (destIata) destinationSelector.setByIata(destIata);
-      });
-    }
-  }
-
   function applyDateLimits() {
     const bounds = flightDateBounds();
     const dateInput = $("flightDate");
     dateInput.min = "";
     dateInput.max = bounds.max;
   }
+
+  function clearPrefillQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get("autoSearch")) return;
+    ["autoSearch", "flightNumber", "flightDate", "originIata", "destinationIata", "origin", "destination"].forEach(
+      function (key) {
+        params.delete(key);
+      }
+    );
+    const query = params.toString();
+    const nextUrl = window.location.pathname + (query ? "?" + query : "") + window.location.hash;
+    history.replaceState({}, "", nextUrl);
+  }
+
+  function runFlightSearch() {
+    applyDateLimits();
+    const dateVal = checkForm.flightDate.value;
+    const numberVal = normalizeFlightNumber(checkForm.flightNumber.value);
+    checkForm.flightNumber.value = numberVal;
+
+    const originIata = originSelector.getIata();
+    const destIata = destinationSelector.getIata();
+
+    const dateCheck = validateFlightDate(dateVal);
+    const numberOk = isValidFlightNumber(numberVal);
+    const originOk = !!originIata;
+    const destOk = !!destIata;
+    const dateErr = $("error-flightDate");
+    if (!dateCheck.ok) dateErr.textContent = dateCheck.message;
+    setFieldError("group-flightDate", "error-flightDate", !dateCheck.ok);
+    setFieldError("group-flightNumber", "error-flightNumber", !numberOk);
+    setFieldError("group-origin", "error-origin", !originOk);
+    setFieldError("group-destination", "error-destination", !destOk);
+    $("searchFormError").classList.remove("is-visible");
+    $("searchFormError").textContent = "";
+    if (!dateCheck.ok || !numberOk || !originOk || !destOk) {
+      return Promise.resolve(false);
+    }
+
+    const btn = $("checkSubmit");
+    btn.disabled = true;
+    btn.textContent = "Uçuşunuz aranıyor...";
+    scrollToStep($("checkFormCard"));
+
+    return lookupFlight({
+      flightDate: dateVal,
+      flightNumber: numberVal,
+      departureIata: originIata,
+      arrivalIata: destIata
+    })
+      .then(function (result) {
+        pendingUnverified = null;
+        if (!result.flights || result.flights.length === 0) {
+          pendingUnverified = {
+            flightDate: dateVal,
+            flightNumber: numberVal,
+            departureIata: originIata,
+            arrivalIata: destIata,
+            providerVerifiedCancellation: null
+          };
+          hideAllSteps();
+          $("searchMissMessage").textContent =
+            "Uçuş bilgileri otomatik olarak doğrulanamadı. Uçuşunuz iptal edilmiş veya veri sağlayıcımızın geçmiş kayıtlarında bulunmuyor olabilir. Başvurunuza devam edebilirsiniz.";
+          $("searchMissCard").hidden = false;
+          scrollToStep($("searchMissCard"));
+          return true;
+        }
+        if (result.flights.length > 1) {
+          renderFlightChoices(result);
+          return true;
+        }
+        confirmSelectedFlight(result.flights[0], {
+          flightDate: result.date || dateVal,
+          flightNumber: result.flightNumber,
+          departureIata: result.departureIata || originIata,
+          arrivalIata: result.arrivalIata || destIata,
+          distanceKm: result.distanceKm,
+          isDomestic: result.isDomestic == null ? null : result.isDomestic === true
+        });
+        return true;
+      })
+      .catch(function (err) {
+        const continueCodes = {
+          FLIGHT_TOO_RECENT: true,
+          HISTORICAL_LIMIT: true,
+          FLIGHT_NOT_FOUND: true,
+          PROVIDER_ERROR: true,
+          not_found: true
+        };
+        if (err && err.canContinue !== false && err.code && continueCodes[err.code]) {
+          pendingUnverified = {
+            flightDate: dateVal,
+            flightNumber: numberVal,
+            departureIata: originIata,
+            arrivalIata: destIata,
+            providerVerifiedCancellation: err.providerVerifiedCancellation
+          };
+          hideAllSteps();
+          $("searchMissMessage").textContent = err.message;
+          $("searchMissCard").hidden = false;
+          scrollToStep($("searchMissCard"));
+          return true;
+        }
+        const box = $("searchFormError");
+        box.textContent =
+          "Uçuş bilgileri şu anda otomatik olarak alınamadı. Başvurunuza devam edebilirsiniz.";
+        box.classList.add("is-visible");
+        return false;
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = "Uçuşumu bul";
+      });
+  }
+
+  function applyQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    const autoSearch = params.get("autoSearch") === "1";
+    const number = params.get("flightNumber");
+    const date = params.get("flightDate");
+    const originIata = params.get("originIata") || params.get("origin");
+    const destIata = params.get("destinationIata") || params.get("destination");
+
+    if (number && $("flightNumber")) {
+      $("flightNumber").value = normalizeFlightNumber(number);
+    }
+    if (date && $("flightDate")) {
+      $("flightDate").value = date;
+    }
+
+    const prefillAirports =
+      originIata || destIata
+        ? loadAirportCatalog().then(function () {
+            if (originIata) originSelector.setByIata(originIata);
+            if (destIata) destinationSelector.setByIata(destIata);
+          })
+        : Promise.resolve();
+
+    return prefillAirports.then(function () {
+      if (!autoSearch) return;
+      return runFlightSearch().then(function (started) {
+        if (started) clearPrefillQueryParams();
+      });
+    });
+  }
+
   applyDateLimits();
   applyQueryParams();
 
@@ -481,98 +607,7 @@ function wireUi() {
 
   checkForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    applyDateLimits();
-    const dateVal = checkForm.flightDate.value;
-    const numberVal = normalizeFlightNumber(checkForm.flightNumber.value);
-    checkForm.flightNumber.value = numberVal;
-
-    const originIata = originSelector.getIata();
-    const destIata = destinationSelector.getIata();
-
-    const dateCheck = validateFlightDate(dateVal);
-    const numberOk = isValidFlightNumber(numberVal);
-    const originOk = !!originIata;
-    const destOk = !!destIata;
-    const dateErr = $("error-flightDate");
-    if (!dateCheck.ok) dateErr.textContent = dateCheck.message;
-    setFieldError("group-flightDate", "error-flightDate", !dateCheck.ok);
-    setFieldError("group-flightNumber", "error-flightNumber", !numberOk);
-    setFieldError("group-origin", "error-origin", !originOk);
-    setFieldError("group-destination", "error-destination", !destOk);
-    $("searchFormError").classList.remove("is-visible");
-    $("searchFormError").textContent = "";
-    if (!dateCheck.ok || !numberOk || !originOk || !destOk) return;
-
-    const btn = $("checkSubmit");
-    btn.disabled = true;
-    btn.textContent = "Uçuşunuz aranıyor...";
-    lookupFlight({
-      flightDate: dateVal,
-      flightNumber: numberVal,
-      departureIata: originIata,
-      arrivalIata: destIata
-    })
-      .then(function (result) {
-        pendingUnverified = null;
-        if (!result.flights || result.flights.length === 0) {
-          pendingUnverified = {
-            flightDate: dateVal,
-            flightNumber: numberVal,
-            departureIata: originIata,
-            arrivalIata: destIata,
-            providerVerifiedCancellation: null
-          };
-          hideAllSteps();
-          $("searchMissMessage").textContent =
-            "Uçuş bilgileri otomatik olarak doğrulanamadı. Uçuşunuz iptal edilmiş veya veri sağlayıcımızın geçmiş kayıtlarında bulunmuyor olabilir. Başvurunuza devam edebilirsiniz.";
-          $("searchMissCard").hidden = false;
-          scrollToStep($("searchMissCard"));
-          return;
-        }
-        if (result.flights.length > 1) {
-          renderFlightChoices(result);
-          return;
-        }
-        confirmSelectedFlight(result.flights[0], {
-          flightDate: result.date || dateVal,
-          flightNumber: result.flightNumber,
-          departureIata: result.departureIata || originIata,
-          arrivalIata: result.arrivalIata || destIata,
-          distanceKm: result.distanceKm,
-          isDomestic: result.isDomestic == null ? null : result.isDomestic === true
-        });
-      })
-      .catch(function (err) {
-        const continueCodes = {
-          FLIGHT_TOO_RECENT: true,
-          HISTORICAL_LIMIT: true,
-          FLIGHT_NOT_FOUND: true,
-          PROVIDER_ERROR: true,
-          not_found: true
-        };
-        if (err && err.canContinue !== false && err.code && continueCodes[err.code]) {
-          pendingUnverified = {
-            flightDate: dateVal,
-            flightNumber: numberVal,
-            departureIata: originIata,
-            arrivalIata: destIata,
-            providerVerifiedCancellation: err.providerVerifiedCancellation
-          };
-          hideAllSteps();
-          $("searchMissMessage").textContent = err.message;
-          $("searchMissCard").hidden = false;
-          scrollToStep($("searchMissCard"));
-          return;
-        }
-        const box = $("searchFormError");
-        box.textContent =
-          "Uçuş bilgileri şu anda otomatik olarak alınamadı. Başvurunuza devam edebilirsiniz.";
-        box.classList.add("is-visible");
-      })
-      .finally(function () {
-        btn.disabled = false;
-        btn.textContent = "Uçuşumu Bul";
-      });
+    runFlightSearch();
   });
 
   $("confirmFlightBtn").addEventListener("click", function () {
