@@ -136,14 +136,10 @@
   });
 })();
 
-(function initHeaderMobilePlane() {
-  var brand = document.querySelector(".site-header .brand");
+(function initHeaderPlanes() {
   var inner = document.querySelector(".site-header .header-inner");
-  if (!brand || !inner || inner.querySelector(".header-mobile-plane")) return;
+  if (!inner) return;
 
-  var plane = document.createElement("div");
-  plane.className = "header-mobile-plane";
-  plane.setAttribute("aria-hidden", "true");
   var reduceMotion = false;
   try {
     reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -152,27 +148,51 @@
   }
 
   var routePath = "M 4 30 C 38 10, 72 34, 108 16 S 168 28, 196 22";
-  var motionTag = reduceMotion
-    ? ""
-    : '<animateMotion dur="7s" repeatCount="indefinite" path="' +
-      routePath +
-      '" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"/>';
 
-  plane.innerHTML =
-    '<div class="header-mobile-plane-track">' +
-    '<svg class="header-mobile-plane-scene" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true">' +
-    '<path class="header-mobile-plane-route" d="' +
-    routePath +
-    '" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 4" stroke-linecap="round"/>' +
-    '<g class="header-mobile-plane-ship"' +
-    (reduceMotion ? ' transform="translate(100 22)"' : "") +
-    ">" +
-    '<image class="header-mobile-plane-img" href="assets/mobile-plane-cartoon.png" x="-26" y="-13" width="52" height="26" preserveAspectRatio="xMidYMid meet"/>' +
-    motionTag +
-    "</g>" +
-    "</svg>" +
-    "</div>";
-  brand.insertAdjacentElement("afterend", plane);
+  function buildHeaderPlane(className, imgWidth, imgHeight) {
+    var halfW = imgWidth / 2;
+    var halfH = imgHeight / 2;
+    var motionTag = reduceMotion
+      ? ""
+      : '<animateMotion dur="7s" repeatCount="indefinite" path="' +
+        routePath +
+        '" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"/>';
+    var plane = document.createElement("div");
+    plane.className = className;
+    plane.setAttribute("aria-hidden", "true");
+    plane.innerHTML =
+      '<div class="header-mobile-plane-track">' +
+      '<svg class="header-mobile-plane-scene" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true">' +
+      '<path class="header-mobile-plane-route" d="' +
+      routePath +
+      '" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 4" stroke-linecap="round"/>' +
+      '<g class="header-mobile-plane-ship"' +
+      (reduceMotion ? ' transform="translate(100 22)"' : "") +
+      ">" +
+      '<image class="header-mobile-plane-img" href="assets/mobile-plane-cartoon.png" x="' +
+      -halfW +
+      '" y="' +
+      -halfH +
+      '" width="' +
+      imgWidth +
+      '" height="' +
+      imgHeight +
+      '" preserveAspectRatio="xMidYMid meet"/>' +
+      motionTag +
+      "</g>" +
+      "</svg>" +
+      "</div>";
+    return plane;
+  }
+
+  var brand = inner.querySelector(".brand");
+  var tools = inner.querySelector(".header-tools");
+  if (brand && !inner.querySelector(".header-mobile-plane")) {
+    brand.insertAdjacentElement("afterend", buildHeaderPlane("header-mobile-plane", 52, 26));
+  }
+  if (tools && !inner.querySelector(".header-desktop-plane")) {
+    tools.insertAdjacentElement("beforebegin", buildHeaderPlane("header-desktop-plane", 46, 23));
+  }
 })();
 
 (function () {

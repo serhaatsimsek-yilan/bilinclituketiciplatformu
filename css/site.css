@@ -255,7 +255,8 @@ h3 {
   color: var(--muted);
 }
 
-.header-mobile-plane {
+.header-mobile-plane,
+.header-desktop-plane {
   display: none;
 }
 
@@ -310,6 +311,46 @@ h3 {
   display: flex;
   align-items: center;
   gap: 22px;
+  min-width: 0;
+}
+
+@media (min-width: 981px) {
+  .header-inner {
+    grid-template-columns: auto 1fr auto auto;
+    gap: 12px 14px;
+  }
+
+  .header-inner .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .header-inner .site-nav {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .header-desktop-plane {
+    display: block;
+    grid-column: 3;
+    grid-row: 1;
+    width: clamp(72px, 11vw, 176px);
+    pointer-events: none;
+    align-self: center;
+  }
+
+  .header-inner .header-tools {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .header-desktop-plane .header-mobile-plane-track {
+    min-height: 38px;
+  }
+
+  .header-desktop-plane .header-mobile-plane-scene {
+    height: 38px;
+  }
 }
 
 .site-nav a {
