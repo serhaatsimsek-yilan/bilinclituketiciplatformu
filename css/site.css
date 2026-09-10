@@ -259,6 +259,35 @@ h3 {
   display: none;
 }
 
+.header-mobile-plane-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 44px;
+  overflow: visible;
+}
+
+.header-mobile-plane-scene {
+  display: block;
+  width: 100%;
+  height: 44px;
+  color: rgba(47, 111, 199, 0.28);
+  overflow: visible;
+}
+
+.header-mobile-plane-route {
+  vector-effect: non-scaling-stroke;
+}
+
+.header-mobile-plane-ship {
+  opacity: 0.98;
+  filter: drop-shadow(0 1px 2px rgba(47, 111, 199, 0.18));
+}
+
+.header-mobile-plane-img {
+  pointer-events: none;
+}
+
 .nav-toggle {
   display: none;
   width: 40px;
@@ -2179,19 +2208,10 @@ main.legal.article-page > .article-related {
   }
 
   .header-mobile-plane {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     grid-column: 2;
     grid-row: 1;
-    color: var(--blue);
-    opacity: 0.32;
     pointer-events: none;
-  }
-
-  .header-mobile-plane svg {
-    display: block;
-    transform: rotate(-14deg);
   }
 
   .header-inner .header-tools {

@@ -144,10 +144,34 @@
   var plane = document.createElement("div");
   plane.className = "header-mobile-plane";
   plane.setAttribute("aria-hidden", "true");
+  var reduceMotion = false;
+  try {
+    reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  } catch (motionErr) {
+    reduceMotion = false;
+  }
+
+  var routePath = "M 4 30 C 38 10, 72 34, 108 16 S 168 28, 196 22";
+  var motionTag = reduceMotion
+    ? ""
+    : '<animateMotion dur="7s" repeatCount="indefinite" path="' +
+      routePath +
+      '" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"/>';
+
   plane.innerHTML =
-    '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">' +
-    '<path d="M3 17l7-3 11 4-7-10-3 7-8 2z"/>' +
-    "</svg>";
+    '<div class="header-mobile-plane-track">' +
+    '<svg class="header-mobile-plane-scene" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true">' +
+    '<path class="header-mobile-plane-route" d="' +
+    routePath +
+    '" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 4" stroke-linecap="round"/>' +
+    '<g class="header-mobile-plane-ship"' +
+    (reduceMotion ? ' transform="translate(100 22)"' : "") +
+    ">" +
+    '<image class="header-mobile-plane-img" href="assets/mobile-plane-cartoon.png" x="-26" y="-13" width="52" height="26" preserveAspectRatio="xMidYMid meet"/>' +
+    motionTag +
+    "</g>" +
+    "</svg>" +
+    "</div>";
   brand.insertAdjacentElement("afterend", plane);
 })();
 
