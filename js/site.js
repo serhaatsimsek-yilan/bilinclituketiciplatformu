@@ -356,27 +356,21 @@
   banner.setAttribute("aria-labelledby", "consent-title");
   banner.setAttribute("aria-describedby", "consent-text");
   banner.innerHTML =
-    '<div class="wrap consent-banner-inner">' +
-    '<div class="consent-banner-copy">' +
+    '<div class="consent-banner-card">' +
     '<p class="consent-banner-eyebrow">Çerezler ve KVKK</p>' +
-    '<p id="consent-title" class="consent-banner-title">Kişisel verileriniz ve çerez kullanımı</p>' +
-    '<p id="consent-text" class="consent-banner-text">Bu site; oturum, form ve tercihleriniz için zorunlu çerezler kullanır. Uçuş tazminatı başvurusu ve iletişim formları aracılığıyla paylaştığınız kişisel veriler, 6698 sayılı KVKK kapsamında yalnızca başvurunuzun alınması, ön değerlendirme ve sizinle iletişim kurulması amacıyla işlenir. Ayrıntılar için <a href="kvkk.html">KVKK Aydınlatma Metni</a> ve <a href="gizlilik.html">Gizlilik Politikası</a> sayfalarını inceleyebilirsiniz.</p>' +
-    "</div>" +
-    '<div class="consent-banner-actions">' +
+    '<p id="consent-title" class="consent-banner-title">Kişisel verileriniz ve çerezler</p>' +
+    '<p id="consent-text" class="consent-banner-text">Zorunlu çerezler site işlevleri için kullanılır. Formlar aracılığıyla ilettiğiniz veriler KVKK kapsamında yalnızca başvuru ve iletişim amacıyla işlenir. <a href="kvkk.html">KVKK metni</a> · <a href="gizlilik.html">Gizlilik</a></p>' +
     '<button type="button" class="primary-btn consent-banner-accept" data-consent-accept>Kabul ediyorum</button>' +
-    "</div>" +
     "</div>";
 
   function closeBanner() {
     banner.classList.add("is-closing");
     window.setTimeout(function () {
       if (banner.parentNode) banner.parentNode.removeChild(banner);
-      document.body.classList.remove("has-consent-banner");
     }, 220);
   }
 
   document.body.appendChild(banner);
-  document.body.classList.add("has-consent-banner");
 
   banner.querySelector("[data-consent-accept]").addEventListener("click", function () {
     try {
