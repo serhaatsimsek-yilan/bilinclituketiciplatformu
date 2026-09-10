@@ -65,17 +65,17 @@
       <form class="query-card" action="ucus-tazminati.html" method="get">
         <div class="query-grid">
           <div class="field-icon">
-            <label for="homeFlightNumber">Uçuş numarası</label>
-            <div class="input-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 17l7-3 11 4-7-10-3 7-8 2z"/></svg>
-              <input id="homeFlightNumber" name="flightNumber" type="text" placeholder="Örn. PC2281" autocomplete="off" autocapitalize="characters" spellcheck="false">
-            </div>
-          </div>
-          <div class="field-icon">
             <label for="homeFlightDate">Uçuş tarihi</label>
             <div class="input-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>
               <input id="homeFlightDate" name="flightDate" type="date">
+            </div>
+          </div>
+          <div class="field-icon">
+            <label for="homeFlightNumber">Uçuş numarası</label>
+            <div class="input-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 17l7-3 11 4-7-10-3 7-8 2z"/></svg>
+              <input id="homeFlightNumber" name="flightNumber" type="text" placeholder="Örn. PC2281" autocomplete="off" autocapitalize="characters" spellcheck="false">
             </div>
           </div>
           <div class="field-icon field-airport" id="group-home-origin">
@@ -83,7 +83,7 @@
             <div class="airport-combo query-airport-combo">
               <div class="input-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
-                <input id="homeOriginAirport" type="text" placeholder="Şehir veya havalimanı arayın" autocomplete="off">
+                <input id="homeOriginAirport" type="text" placeholder="Şehir, havalimanı veya ülke arayın" autocomplete="off">
               </div>
               <input type="hidden" id="homeOriginIata" name="originIata" value="">
               <div class="airport-list" id="homeOriginAirportList" hidden></div>
@@ -95,7 +95,7 @@
             <div class="airport-combo query-airport-combo">
               <div class="input-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
-                <input id="homeDestinationAirport" type="text" placeholder="Şehir veya havalimanı arayın" autocomplete="off">
+                <input id="homeDestinationAirport" type="text" placeholder="Şehir, havalimanı veya ülke arayın" autocomplete="off">
               </div>
               <input type="hidden" id="homeDestinationIata" name="destinationIata" value="">
               <div class="airport-list" id="homeDestinationAirportList" hidden></div>

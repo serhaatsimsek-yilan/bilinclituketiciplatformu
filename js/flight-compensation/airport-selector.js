@@ -1,6 +1,6 @@
 import { AIRPORTS_ENDPOINT, AIRPORTS_STATIC_CATALOG } from "./config.js";
 
-const CATALOG_STORAGE_KEY = "btp-airport-catalog-v1";
+const CATALOG_STORAGE_KEY = "btp-airport-catalog-v2";
 const memoryCatalog = { airports: null };
 const EXTRA_ALIASES = {
   PRN: "pristine prishtine prishtina",
@@ -175,23 +175,29 @@ function loadAirportCatalog() {
     catalogPromise = Promise.resolve(stored);
     return catalogPromise;
   }
-  catalogPromise = loadStaticCatalogFile()
-    .then(function (airports) {
-      if (airports.length > 100) {
-        storeCatalog(airports);
-        return airports;
+  catalogPromise = loadRemoteCatalogFile()
+    .then(function (remote) {
+      if (remote.length > 100) {
+        storeCatalog(remote);
+        return remote;
       }
-      return loadRemoteCatalogFile().then(function (remote) {
-        if (remote.length > 100) {
-          storeCatalog(remote);
-          return remote;
+      return loadStaticCatalogFile().then(function (local) {
+        if (local.length > 100) {
+          storeCatalog(local);
+          return local;
         }
         throw new Error("catalog_unavailable");
       });
     })
     .catch(function () {
-      catalogPromise = null;
-      return [];
+      return loadStaticCatalogFile().then(function (local) {
+        if (local.length > 100) {
+          storeCatalog(local);
+          return local;
+        }
+        catalogPromise = null;
+        return [];
+      });
     });
   return catalogPromise;
 }
