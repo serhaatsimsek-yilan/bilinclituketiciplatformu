@@ -33,7 +33,7 @@ jobs:
           ftp.login(os.environ["FTP_USERNAME"], os.environ["FTP_PASSWORD"])
           ftp.set_pasv(True)
 
-          for folder in ("api", "api/data", "api/cache"):
+          for folder in ("data", "api", "api/data", "api/cache"):
               try:
                   ftp.mkd(folder)
               except ftplib.error_perm:
@@ -63,7 +63,6 @@ jobs:
             **/README.md
             **/_revise_articles.py
             **/data/**
-            !data/airports-catalog.json
             api/lib/local-config.php
             api/cache/**
             api/data/**

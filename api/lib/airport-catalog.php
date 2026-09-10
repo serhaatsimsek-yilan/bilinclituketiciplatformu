@@ -327,7 +327,7 @@ function airport_catalog_bundled_rows() {
     return $rows;
   }
   $rows = array();
-  $path = dirname(__DIR__, 2) . "/data/airports-catalog.json";
+  $path = dirname(__DIR__, 2) . "/js/flight-compensation/airports-catalog.json";
   if (!is_readable($path)) {
     return $rows;
   }
