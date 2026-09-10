@@ -344,9 +344,38 @@ h3 {
 
 .query-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 1.2fr) auto;
   gap: 12px;
   align-items: end;
+}
+
+.query-airport-combo {
+  position: relative;
+}
+
+.query-airport-combo .airport-list {
+  z-index: 30;
+}
+
+.query-card .field-error {
+  margin: 6px 0 0;
+  color: #c0392b;
+  font-size: 12px;
+}
+
+.query-card .field-airport.has-error .input-icon input {
+  border-color: #e74c3c;
+}
+
+@media (max-width: 1180px) {
+  .query-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .query-grid .btn,
+  .query-grid .btn-primary {
+    grid-column: 1 / -1;
+  }
 }
 
 .query-card label {

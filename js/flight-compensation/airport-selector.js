@@ -1,4 +1,4 @@
-import { AIRPORTS_ENDPOINT } from "./config.js";
+import { AIRPORTS_ENDPOINT, AIRPORTS_STATIC_CATALOG } from "./config.js";
 
 const CATALOG_STORAGE_KEY = "btp-airport-catalog-v1";
 const memoryCatalog = { airports: null };
@@ -137,14 +137,22 @@ function searchAirportsRemote(query) {
     });
 }
 
-function loadAirportCatalog() {
-  if (catalogPromise) return catalogPromise;
-  const stored = readStoredCatalog();
-  if (stored) {
-    catalogPromise = Promise.resolve(stored);
-    return catalogPromise;
-  }
-  catalogPromise = fetch(AIRPORTS_ENDPOINT + "?catalog=1", { headers: { Accept: "application/json" } })
+function loadStaticCatalogFile() {
+  return fetch(AIRPORTS_STATIC_CATALOG, { headers: { Accept: "application/json" } })
+    .then(function (res) {
+      if (!res.ok) return [];
+      return res.json().then(function (json) {
+        const airports = json && Array.isArray(json.airports) ? json.airports : [];
+        return airports.length > 100 ? airports : [];
+      });
+    })
+    .catch(function () {
+      return [];
+    });
+}
+
+function loadRemoteCatalogFile() {
+  return fetch(AIRPORTS_ENDPOINT + "?catalog=1", { headers: { Accept: "application/json" } })
     .then(function (res) {
       return res.json().then(function (json) {
         return { res: res, json: json };
@@ -153,11 +161,33 @@ function loadAirportCatalog() {
     .then(function (pack) {
       const json = pack.json;
       const airports = json && json.ok && Array.isArray(json.airports) ? json.airports : [];
+      return airports.length > 100 ? airports : [];
+    })
+    .catch(function () {
+      return [];
+    });
+}
+
+function loadAirportCatalog() {
+  if (catalogPromise) return catalogPromise;
+  const stored = readStoredCatalog();
+  if (stored) {
+    catalogPromise = Promise.resolve(stored);
+    return catalogPromise;
+  }
+  catalogPromise = loadStaticCatalogFile()
+    .then(function (airports) {
       if (airports.length > 100) {
         storeCatalog(airports);
         return airports;
       }
-      throw new Error("catalog_unavailable");
+      return loadRemoteCatalogFile().then(function (remote) {
+        if (remote.length > 100) {
+          storeCatalog(remote);
+          return remote;
+        }
+        throw new Error("catalog_unavailable");
+      });
     })
     .catch(function () {
       catalogPromise = null;
@@ -165,6 +195,8 @@ function loadAirportCatalog() {
     });
   return catalogPromise;
 }
+
+export { loadAirportCatalog };
 
 export function getStoredAirportCatalog() {
   return readStoredCatalog() || [];
@@ -192,6 +224,13 @@ export function bindAirportSelector(opts) {
   let debounceTimer = null;
   let catalog = readStoredCatalog() || [];
   let catalogReady = catalog.length > 100;
+
+  loadAirportCatalog().then(function (rows) {
+    if (rows && rows.length > 100) {
+      catalog = rows;
+      catalogReady = true;
+    }
+  });
 
   function setStatus(text) {
     if (!status) return;
@@ -363,6 +402,20 @@ export function bindAirportSelector(opts) {
       input.value = "";
       closeList();
       setStatus("");
+    },
+    setByIata: function (iata) {
+      const code = String(iata || "").toUpperCase();
+      if (!code) return;
+      const list = catalog.length > 100 ? catalog : readStoredCatalog() || catalog;
+      const pick = list.find(function (row) {
+        return row && row.iata === code;
+      });
+      if (pick) {
+        setSelected(pick);
+        return;
+      }
+      hidden.value = code;
+      input.value = code;
     },
     group: group
   };

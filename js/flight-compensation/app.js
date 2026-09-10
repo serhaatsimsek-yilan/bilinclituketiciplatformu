@@ -1,5 +1,10 @@
 import { lookupFlight, assessConfirmedFlight, buildLookupState } from "./client.js";
-import { bindAirportSelector, routeDistanceKmFromCatalog, getStoredAirportCatalog } from "./airport-selector.js";
+import {
+  bindAirportSelector,
+  routeDistanceKmFromCatalog,
+  getStoredAirportCatalog,
+  loadAirportCatalog
+} from "./airport-selector.js";
 import {
   createEmptyApplicationState,
   submitApplication
@@ -279,6 +284,26 @@ function wireUi() {
     groupId: "group-destination"
   });
 
+  function applyQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    const number = params.get("flightNumber");
+    const date = params.get("flightDate");
+    const originIata = params.get("originIata") || params.get("origin");
+    const destIata = params.get("destinationIata") || params.get("destination");
+    if (number && $("flightNumber")) {
+      $("flightNumber").value = normalizeFlightNumber(number);
+    }
+    if (date && $("flightDate")) {
+      $("flightDate").value = date;
+    }
+    if (originIata || destIata) {
+      loadAirportCatalog().then(function () {
+        if (originIata) originSelector.setByIata(originIata);
+        if (destIata) destinationSelector.setByIata(destIata);
+      });
+    }
+  }
+
   function applyDateLimits() {
     const bounds = flightDateBounds();
     const dateInput = $("flightDate");
@@ -286,6 +311,7 @@ function wireUi() {
     dateInput.max = bounds.max;
   }
   applyDateLimits();
+  applyQueryParams();
 
   function showSearchForm() {
     hideAllSteps();

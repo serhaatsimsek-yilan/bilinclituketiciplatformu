@@ -321,6 +321,56 @@ function airport_compact_from_row($row, $cityMap) {
   );
 }
 
+function airport_catalog_bundled_rows() {
+  static $rows = null;
+  if ($rows !== null) {
+    return $rows;
+  }
+  $rows = array();
+  $path = dirname(__DIR__, 2) . "/data/airports-catalog.json";
+  if (!is_readable($path)) {
+    return $rows;
+  }
+  $raw = @file_get_contents($path);
+  if ($raw === false) {
+    return $rows;
+  }
+  $json = json_decode($raw, true);
+  if (!is_array($json) || !isset($json["airports"]) || !is_array($json["airports"])) {
+    return $rows;
+  }
+  foreach ($json["airports"] as $item) {
+    if (!is_array($item)) {
+      continue;
+    }
+    $iata = normalize_iata_code(isset($item["iata"]) ? $item["iata"] : "");
+    if ($iata === null) {
+      continue;
+    }
+    $name = aviation_edge_optional_string($item, "name");
+    if ($name === null) {
+      $name = $iata;
+    }
+    $city = aviation_edge_optional_string($item, "city");
+    $country = aviation_edge_optional_string($item, "country");
+    $search = isset($item["search"]) ? (string) $item["search"] : airport_fold(
+      $iata . " " . $name . " " . ($city ? $city : "") . " " . ($country ? $country : "")
+    );
+    $rows[] = array(
+      "iata" => $iata,
+      "name" => $name,
+      "city" => $city,
+      "country" => $country,
+      "countryCode" => null,
+      "cityCode" => null,
+      "lat" => isset($item["lat"]) ? $item["lat"] : null,
+      "lon" => isset($item["lon"]) ? $item["lon"] : null,
+      "search" => $search
+    );
+  }
+  return $rows;
+}
+
 function airport_catalog_load($allowFetch) {
   $fromFile = airport_catalog_read_file("airports-v4.json");
   if (is_array($fromFile) && isset($fromFile["airports"]) && count($fromFile["airports"]) > 500) {
@@ -329,6 +379,10 @@ function airport_catalog_load($allowFetch) {
   $cached = flight_cache_get("aviation_edge:airports:compact:v4");
   if (is_array($cached) && isset($cached["airports"]) && count($cached["airports"]) > 500) {
     return $cached["airports"];
+  }
+  $bundled = airport_catalog_bundled_rows();
+  if (count($bundled) >= 100) {
+    return $bundled;
   }
   if (!$allowFetch) {
     return array();

@@ -176,19 +176,6 @@
 })();
 
 (function () {
-  const params = new URLSearchParams(window.location.search);
-  const number = params.get("flightNumber");
-  const date = params.get("flightDate");
-  const origin = params.get("origin");
-  const numberInput = document.getElementById("flightNumber");
-  const dateInput = document.getElementById("flightDate");
-  const originInput = document.getElementById("originAirport");
-  if (numberInput && number) numberInput.value = number.toUpperCase();
-  if (dateInput && date) dateInput.value = date;
-  if (originInput && origin) originInput.value = origin;
-})();
-
-(function () {
   var FALLBACK_STORIES = [
     {
       name: "E.K.",

@@ -63,6 +63,7 @@ jobs:
             **/README.md
             **/_revise_articles.py
             **/data/**
+            !data/airports-catalog.json
             api/lib/local-config.php
             api/cache/**
             api/data/**
