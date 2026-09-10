@@ -255,6 +255,10 @@ h3 {
   color: var(--muted);
 }
 
+.header-mobile-plane {
+  display: none;
+}
+
 .nav-toggle {
   display: none;
   width: 40px;
@@ -2163,10 +2167,41 @@ main.legal.article-page > .article-related {
   }
 
   .header-inner {
-    grid-template-columns: 1fr auto auto;
-    gap: 12px;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 10px;
     padding: 6px 0;
     position: relative;
+  }
+
+  .header-inner .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .header-mobile-plane {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 2;
+    grid-row: 1;
+    color: var(--blue);
+    opacity: 0.32;
+    pointer-events: none;
+  }
+
+  .header-mobile-plane svg {
+    display: block;
+    transform: rotate(-14deg);
+  }
+
+  .header-inner .header-tools {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .header-inner .nav-toggle {
+    grid-column: 4;
+    grid-row: 1;
   }
 
   .brand-logo {

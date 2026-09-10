@@ -136,6 +136,21 @@
   });
 })();
 
+(function initHeaderMobilePlane() {
+  var brand = document.querySelector(".site-header .brand");
+  var inner = document.querySelector(".site-header .header-inner");
+  if (!brand || !inner || inner.querySelector(".header-mobile-plane")) return;
+
+  var plane = document.createElement("div");
+  plane.className = "header-mobile-plane";
+  plane.setAttribute("aria-hidden", "true");
+  plane.innerHTML =
+    '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">' +
+    '<path d="M3 17l7-3 11 4-7-10-3 7-8 2z"/>' +
+    "</svg>";
+  brand.insertAdjacentElement("afterend", plane);
+})();
+
 (function () {
   const toggle = document.querySelector("[data-nav-toggle]");
   const drawer = document.querySelector("[data-nav-drawer]");
