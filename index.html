@@ -152,20 +152,41 @@
       </div>
     </section>
 
-    <section class="section section-soft section-stories" id="deneyimler">
+    <section class="section section-soft section-stories section-stories-featured" id="deneyimler">
       <div class="wrap">
-        <div class="section-row">
-          <div>
-            <p class="eyebrow">Tüketiciler anlatıyor</p>
-            <h2>Yaşadığınız sorunu yorum olarak yazın</h2>
+        <header class="stories-featured-head">
+          <p class="eyebrow">Gerçek deneyimler</p>
+          <h2>Tüketiciler anlatıyor</h2>
+          <p class="lead">Siz de yaşadığınız deneyimi paylaşın, diğer tüketicilere yol gösterin.</p>
+        </header>
+
+        <div class="stories-carousel" data-stories-carousel>
+          <button type="button" class="stories-carousel-btn stories-carousel-prev" aria-label="Önceki yorumlar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="stories-carousel-viewport">
+            <div class="stories-carousel-track" data-stories-list data-stories-limit="9" data-stories-variant="featured">
+              <p class="form-help" data-stories-empty>Yorumlar yükleniyor…</p>
+            </div>
           </div>
-          <a class="nav-cta section-cta" href="deneyimler.html#yorum-yaz">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8M8 14h5"/></svg>
+          <button type="button" class="stories-carousel-btn stories-carousel-next" aria-label="Sonraki yorumlar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="stories-carousel-dots" data-stories-dots hidden aria-hidden="true"></div>
+        </div>
+
+        <div class="stories-featured-cta">
+          <div class="stories-featured-cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8M8 14h5"/></svg>
+          </div>
+          <div class="stories-featured-cta-text">
+            <strong>Siz de deneyiminizi paylaşın</strong>
+            <p>Yaşadığınız sorunu ve çözüm sürecinizi yazarak diğer tüketicilere yardımcı olun.</p>
+          </div>
+          <a class="nav-cta stories-featured-cta-btn" href="deneyimler.html#yorum-yaz">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
             Yorum yaz
           </a>
-        </div>
-        <div class="story-list story-list-home" data-stories-list data-stories-limit="3">
-          <p class="form-help" data-stories-empty hidden>Yorumlar yükleniyor…</p>
         </div>
       </div>
     </section>

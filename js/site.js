@@ -294,7 +294,85 @@
     }
   ];
 
-  function storyCard(item) {
+  function storyTopicIsBaggage(item) {
+    var label = ((item.topic_label || "") + " " + (item.topic || "")).toLowerCase();
+    return label.indexOf("bagaj") !== -1;
+  }
+
+  function storyOutcomeLabel(item) {
+    var text = (item.text || "").toLowerCase();
+    var label = (item.topic_label || "").toLowerCase();
+    if (
+      label.indexOf("iptal") !== -1 ||
+      text.indexOf("tazminat") !== -1 ||
+      text.indexOf("ödeme") !== -1 ||
+      text.indexOf("hakkım") !== -1 ||
+      text.indexOf("onaylandı") !== -1
+    ) {
+      return "Tazminat alındı";
+    }
+    return "Sorun çözüldü";
+  }
+
+  function storyAvatarInitials(name) {
+    return (name || "A")
+      .replace(/\./g, "")
+      .trim()
+      .slice(0, 2)
+      .toUpperCase();
+  }
+
+  function storyTopicIconSvg(isBaggage) {
+    if (isBaggage) {
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">' +
+        '<rect x="5" y="8" width="14" height="11" rx="2"/>' +
+        '<path d="M9 8V6a3 3 0 0 1 6 0v2"/>' +
+        "</svg>"
+      );
+    }
+    return (
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">' +
+      '<path d="M2 16l20-5-3 11H5z"/>' +
+      '<path d="M7 16v3h10v-3"/>' +
+      "</svg>"
+    );
+  }
+
+  function storyCard(item, variant) {
+    if (variant === "featured") {
+      var featured = document.createElement("article");
+      featured.className = "story-card story-card-featured";
+      var isBaggage = storyTopicIsBaggage(item);
+      var topicLabel = item.topic_label || item.topic || "";
+      featured.innerHTML =
+        '<div class="story-card-featured-top">' +
+        '<span class="story-quote" aria-hidden="true">“</span>' +
+        '<span class="story-badge story-badge-featured">' +
+        storyTopicIconSvg(isBaggage) +
+        "<span>" +
+        topicLabel +
+        "</span></span></div>" +
+        '<p class="story-text"></p>' +
+        '<div class="story-stars" aria-label="5 yıldız">' +
+        "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>" +
+        '<div class="story-card-featured-foot">' +
+        '<div class="story-author">' +
+        '<span class="story-avatar">' +
+        storyAvatarInitials(item.name) +
+        "</span>" +
+        "<div><strong></strong><span class=\"story-author-meta\"></span></div></div>" +
+        '<span class="story-outcome">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">' +
+        '<path d="M20 6L9 17l-5-5"/>' +
+        "</svg><span></span></span></div>";
+      featured.querySelector(".story-text").textContent = item.text || "";
+      featured.querySelector(".story-author strong").textContent = item.name || "Anonim";
+      featured.querySelector(".story-author-meta").textContent = item.meta || "";
+      featured.querySelector(".story-outcome span:last-child").textContent = storyOutcomeLabel(item);
+      return featured;
+    }
+
     const el = document.createElement("article");
     el.className = "story-card";
     const meta = document.createElement("div");
@@ -338,6 +416,115 @@
     return el;
   }
 
+  function storiesCarouselPerPage() {
+    if (window.matchMedia("(max-width: 640px)").matches) return 1;
+    if (window.matchMedia("(max-width: 980px)").matches) return 2;
+    return 3;
+  }
+
+  function initStoriesCarousel(wrap) {
+    if (!wrap || wrap.dataset.ready === "1") return;
+    var track = wrap.querySelector("[data-stories-list]");
+    var dotsRoot = wrap.querySelector("[data-stories-dots]");
+    var prevBtn = wrap.querySelector(".stories-carousel-prev");
+    var nextBtn = wrap.querySelector(".stories-carousel-next");
+    if (!track) return;
+
+    var cards = Array.from(track.querySelectorAll(".story-card-featured"));
+    if (!cards.length) return;
+
+    var perPage = storiesCarouselPerPage();
+    var slides = [];
+    var slideIndex;
+    for (slideIndex = 0; slideIndex < cards.length; slideIndex += perPage) {
+      var slide = document.createElement("div");
+      slide.className = "stories-carousel-slide";
+      cards.slice(slideIndex, slideIndex + perPage).forEach(function (card) {
+        slide.appendChild(card);
+      });
+      slides.push(slide);
+    }
+
+    track.innerHTML = "";
+    slides.forEach(function (slide) {
+      track.appendChild(slide);
+    });
+
+    var active = 0;
+
+    function renderDots() {
+      if (!dotsRoot) return;
+      dotsRoot.innerHTML = "";
+      if (slides.length <= 1) {
+        dotsRoot.hidden = true;
+        dotsRoot.setAttribute("aria-hidden", "true");
+        return;
+      }
+      dotsRoot.hidden = false;
+      dotsRoot.removeAttribute("aria-hidden");
+      slides.forEach(function (_slide, index) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "stories-carousel-dot" + (index === active ? " is-active" : "");
+        dot.setAttribute("aria-label", index + 1 + ". yorum grubu");
+        dot.addEventListener("click", function () {
+          active = index;
+          updateCarousel();
+        });
+        dotsRoot.appendChild(dot);
+      });
+    }
+
+    function updateCarousel() {
+      track.style.transform = "translateX(-" + active * 100 + "%)";
+      if (prevBtn) prevBtn.disabled = active <= 0;
+      if (nextBtn) nextBtn.disabled = active >= slides.length - 1;
+      if (dotsRoot) {
+        dotsRoot.querySelectorAll(".stories-carousel-dot").forEach(function (dot, index) {
+          dot.classList.toggle("is-active", index === active);
+        });
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        if (active > 0) {
+          active -= 1;
+          updateCarousel();
+        }
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        if (active < slides.length - 1) {
+          active += 1;
+          updateCarousel();
+        }
+      });
+    }
+
+    renderDots();
+    updateCarousel();
+    wrap.dataset.ready = "1";
+
+    wrap.dataset.perPage = String(perPage);
+
+    if (wrap.dataset.resizeBound !== "1") {
+      window.addEventListener("resize", function () {
+        var nextPerPage = storiesCarouselPerPage();
+        if (nextPerPage === Number(wrap.dataset.perPage || "0")) return;
+        var allCards = Array.from(wrap.querySelectorAll(".story-card-featured"));
+        wrap.dataset.ready = "0";
+        track.innerHTML = "";
+        allCards.forEach(function (card) {
+          track.appendChild(card);
+        });
+        initStoriesCarousel(wrap);
+      });
+      wrap.dataset.resizeBound = "1";
+    }
+  }
+
   function fillStories(root, stories, limit) {
     const empty = root.querySelector("[data-stories-empty]");
     root.querySelectorAll(".story-card").forEach(function (card) {
@@ -349,9 +536,13 @@
       return;
     }
     if (empty) empty.hidden = true;
+    var variant = root.getAttribute("data-stories-variant") || "";
     list.forEach(function (item) {
-      root.appendChild(storyCard(item));
+      root.appendChild(storyCard(item, variant));
     });
+    if (variant === "featured") {
+      initStoriesCarousel(root.closest("[data-stories-carousel]"));
+    }
   }
 
   document.querySelectorAll("[data-stories-list]").forEach(function (root) {
