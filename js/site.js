@@ -150,25 +150,107 @@
   var mobileRoutePath = "M 4 30 C 38 10, 72 34, 108 16 S 168 28, 196 22";
   var desktopRoutePath = "M 0 28 C 40 8, 82 32, 124 14 S 172 26, 200 20";
 
+  function planeSceneId(className) {
+    return "plane-scene-" + className;
+  }
+
+  function planeCloudCluster(cx, cy, scale, tone) {
+    var s = scale || 1;
+    var main = tone === "front" ? "#b8cff0" : "#c8daf5";
+    var mid = tone === "front" ? "#d4e3f8" : "#dce8fb";
+    return (
+      '<g transform="translate(' +
+      cx +
+      " " +
+      cy +
+      ") scale(" +
+      s +
+      ')">' +
+      '<ellipse cx="0" cy="0" rx="14" ry="5.5" fill="' +
+      main +
+      '" opacity="0.38"/>' +
+      '<ellipse cx="11" cy="-2" rx="9" ry="4" fill="' +
+      mid +
+      '" opacity="0.32"/>' +
+      '<ellipse cx="-9" cy="1" rx="8" ry="3.5" fill="#eef4fd" opacity="0.28"/>' +
+      "</g>"
+    );
+  }
+
+  function planeSceneDefs(className) {
+    var sceneId = planeSceneId(className);
+    return (
+      "<defs>" +
+      '<linearGradient id="' +
+      sceneId +
+      '-fade" x1="0" y1="0" x2="1" y2="0">' +
+      '<stop offset="0%" stop-color="#fff" stop-opacity="0"/>' +
+      '<stop offset="10%" stop-color="#fff" stop-opacity="1"/>' +
+      '<stop offset="90%" stop-color="#fff" stop-opacity="1"/>' +
+      '<stop offset="100%" stop-color="#fff" stop-opacity="0"/>' +
+      "</linearGradient>" +
+      '<mask id="' +
+      sceneId +
+      '-mask"><rect x="0" y="0" width="200" height="44" fill="url(#' +
+      sceneId +
+      '-fade)"/></mask></defs>'
+    );
+  }
+
+  function planeCloudsBack(className, reduceMotion) {
+    var backDrift = reduceMotion
+      ? ""
+      : '<animateTransform attributeName="transform" attributeType="XML" type="translate" values="0 0; -8 0.4; 0 0" keyTimes="0;0.5;1" dur="22s" repeatCount="indefinite"/>';
+    return (
+      '<g class="header-plane-clouds header-plane-clouds-back">' +
+      backDrift +
+      planeCloudCluster(32, 20, 0.9, "back") +
+      planeCloudCluster(88, 14, 0.75, "back") +
+      planeCloudCluster(148, 22, 0.68, "back") +
+      "</g>"
+    );
+  }
+
+  function planeCloudsFront(className, reduceMotion) {
+    var frontDrift = reduceMotion
+      ? ""
+      : '<animateTransform attributeName="transform" attributeType="XML" type="translate" values="0 0; 6 -0.4; 0 0" keyTimes="0;0.5;1" dur="16s" repeatCount="indefinite"/>';
+    return (
+      '<g class="header-plane-clouds header-plane-clouds-front">' +
+      frontDrift +
+      planeCloudCluster(58, 18, 0.55, "front") +
+      planeCloudCluster(118, 25, 0.5, "front") +
+      "</g>"
+    );
+  }
+
   function buildHeaderPlane(className, imgWidth, imgHeight, routePath, restX, restY) {
     var halfW = imgWidth / 2;
     var halfH = imgHeight / 2;
+    var motionDur = "5s";
     var motionTag = reduceMotion
       ? ""
-      : '<animateMotion dur="7s" repeatCount="indefinite" path="' +
+      : '<animateMotion dur="' +
+        motionDur +
+        '" repeatCount="indefinite" path="' +
         routePath +
-        '" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"/>';
+        '" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>' +
+        '<animate attributeName="opacity" dur="' +
+        motionDur +
+        '" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.07;0.9;1" calcMode="linear"/>';
     var plane = document.createElement("div");
     plane.className = className;
     plane.setAttribute("aria-hidden", "true");
     plane.innerHTML =
       '<div class="header-mobile-plane-track">' +
       '<svg class="header-mobile-plane-scene" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true">' +
-      '<path class="header-mobile-plane-route" d="' +
-      routePath +
-      '" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 4" stroke-linecap="round"/>' +
+      planeSceneDefs(className) +
+      '<g mask="url(#' +
+      planeSceneId(className) +
+      '-mask)">' +
+      planeCloudsBack(className, reduceMotion) +
       '<g class="header-mobile-plane-ship"' +
-      (reduceMotion ? ' transform="translate(' + restX + " " + restY + ')"' : "") +
+      (reduceMotion ? ' transform="translate(' + restX + " " + restY + ')"' : ' opacity="0"') +
       ">" +
       '<image class="header-mobile-plane-img" href="assets/mobile-plane-cartoon.png" x="' +
       -halfW +
@@ -180,6 +262,8 @@
       imgHeight +
       '" preserveAspectRatio="xMidYMid meet"/>' +
       motionTag +
+      "</g>" +
+      planeCloudsFront(className, reduceMotion) +
       "</g>" +
       "</svg>" +
       "</div>";

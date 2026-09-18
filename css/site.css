@@ -266,23 +266,28 @@ h3 {
   height: 100%;
   min-height: 44px;
   overflow: visible;
+  background: transparent;
 }
 
 .header-mobile-plane-scene {
   display: block;
   width: 100%;
   height: 44px;
-  color: rgba(47, 111, 199, 0.28);
+  color: rgba(47, 111, 199, 0.26);
   overflow: visible;
 }
 
-.header-mobile-plane-route {
-  vector-effect: non-scaling-stroke;
+.header-plane-clouds-back {
+  opacity: 1;
+}
+
+.header-plane-clouds-front {
+  opacity: 0.95;
+  pointer-events: none;
 }
 
 .header-mobile-plane-ship {
-  opacity: 0.98;
-  filter: drop-shadow(0 1px 2px rgba(47, 111, 199, 0.18));
+  filter: drop-shadow(0 2px 3px rgba(31, 56, 100, 0.28));
 }
 
 .header-mobile-plane-img {
